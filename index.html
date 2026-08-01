@@ -73,7 +73,7 @@
             height: 80px;
         }
 
-        /* Logo FH Consulting (SVG) */
+        /* Nouveau Logo FH Consulting Touchy & Dynamique (SVG) */
         .brand-logo {
             display: flex;
             align-items: center;
@@ -542,18 +542,24 @@
 </head>
 <body>
 
-    <!-- Header avec Logo FH Consulting SVG -->
+    <!-- Header avec Logo Touchy FH Consulting (SVG) -->
     <header>
         <div class="container nav-wrapper">
             <a href="#" class="brand-logo">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" rx="20" fill="#0F172A"/>
-                    <path d="M25 25H42V42H25V25Z" fill="#1E3A8A"/>
-                    <path d="M25 25V75" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
-                    <path d="M25 50H55" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
-                    <path d="M55 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
-                    <path d="M75 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
-                    <path d="M55 50H75" stroke="#FFFFFF" stroke-width="10"/>
+                    <defs>
+                        <linearGradient id="fhGrad" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#0284C7"/>
+                            <stop offset="100%" stop-color="#059669"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Background Soft Shell -->
+                    <rect width="100" height="100" rx="24" fill="#1E3A8A" fill-opacity="0.08"/>
+                    <!-- Letter F Loop -->
+                    <path d="M28 26C28 22.6863 30.6863 20 34 20H56C59.3137 20 62 22.6863 62 26C62 29.3137 59.3137 32 56 32H38V44H52C55.3137 44 58 46.6863 58 50C58 53.3137 55.3137 56 52 56H38V74C38 77.3137 35.3137 80 32 80C28.6863 80 28 77.3137 28 74V26Z" fill="#1E3A8A"/>
+                    <!-- Dynamic H & Spark Gradient Link -->
+                    <path d="M64 44C60.6863 44 58 46.6863 58 50C58 53.3137 60.6863 56 64 56H72V74C72 77.3137 74.6863 80 78 80C81.3137 80 84 77.3137 84 74V26C84 22.6863 81.3137 20 78 20C74.6863 20 72 22.6863 72 26V44H64Z" fill="url(#fhGrad)"/>
+                    <circle cx="78" cy="26" r="4" fill="#0284C7"/>
                 </svg>
                 <div class="brand-text">FH <span>CONSULTING</span></div>
             </a>
@@ -598,7 +604,7 @@
         </div>
     </section>
 
-    <!-- Interactive Calculator (Optimisé sur le gain de temps IA) -->
+    <!-- Interactive Calculator (Accélération & Temps Réallouable) -->
     <section id="calculateur" class="calc-section">
         <div class="container">
             <div class="calc-card">
@@ -609,7 +615,7 @@
                     <label for="employees">Nombre de collaborateurs supports (Compta, RH, ADV, Admin) :</label>
                     <input type="number" id="employees" value="3" min="1" max="50" oninput="calculateROI()">
                     
-                    <label for="hours">Heures/semaine réallocables par personne grâce aux automatismes IA :</label>
+                    <label for="hours">Heures/semaine réallouables par personne grâce aux automatismes IA :</label>
                     <input type="number" id="hours" value="6" min="1" max="20" oninput="calculateROI()">
                 </div>
                 <div class="calc-result">
@@ -735,12 +741,16 @@
                 <div class="footer-brand">
                     <a href="#" class="brand-logo">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100" height="100" rx="20" fill="#0F172A"/>
-                            <path d="M25 25V75" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
-                            <path d="M25 50H55" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
-                            <path d="M55 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
-                            <path d="M75 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
-                            <path d="M55 50H75" stroke="#FFFFFF" stroke-width="10"/>
+                            <defs>
+                                <linearGradient id="fhGradFoot" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#0284C7"/>
+                                    <stop offset="100%" stop-color="#059669"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="100" height="100" rx="24" fill="#1E3A8A" fill-opacity="0.08"/>
+                            <path d="M28 26C28 22.6863 30.6863 20 34 20H56C59.3137 20 62 22.6863 62 26C62 29.3137 59.3137 32 56 32H38V44H52C55.3137 44 58 46.6863 58 50C58 53.3137 55.3137 56 52 56H38V74C38 77.3137 35.3137 80 32 80C28.6863 80 28 77.3137 28 74V26Z" fill="#1E3A8A"/>
+                            <path d="M64 44C60.6863 44 58 46.6863 58 50C58 53.3137 60.6863 56 64 56H72V74C72 77.3137 74.6863 80 78 80C81.3137 80 84 77.3137 84 74V26C84 22.6863 81.3137 20 78 20C74.6863 20 72 22.6863 72 26V44H64Z" fill="url(#fhGradFoot)"/>
+                            <circle cx="78" cy="26" r="4" fill="#0284C7"/>
                         </svg>
                         <div class="brand-text">FH <span>CONSULTING</span></div>
                     </a>
