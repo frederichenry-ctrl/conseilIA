@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conseil & Intégration IA pour PME | Optimisation de la Masse Salariale</title>
-    <meta name="description" content="Réduisez vos coûts administratifs et boostez votre rentabilité grâce à l'IA. Audit, automatisation RH/Compta/Ventes et formations sur-mesure.">
+    <title>Consultant IA & Performance Opérationnelle | PME & TPE</title>
+    <meta name="description" content="Conseil et intégration d'IA pour PME. Optimisez la masse salariale des fonctions supports (Compta, RH, ADV) et éliminez la dette administrative.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,17 +72,27 @@
             height: 80px;
         }
 
-        .logo {
-            font-size: 1.4rem;
-            font-weight: 800;
-            color: var(--dark);
-            text-decoration: none;
+        /* Logo Brand SVG */
+        .brand-logo {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 12px;
+            text-decoration: none;
         }
 
-        .logo span {
+        .brand-logo svg {
+            width: 38px;
+            height: 38px;
+        }
+
+        .brand-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.03em;
+        }
+
+        .brand-text span {
             color: var(--primary);
         }
 
@@ -192,7 +202,7 @@
             flex-wrap: wrap;
         }
 
-        /* Trust Stats Bar */
+        /* Trust Stats Bar (Nouvelles Promesses Strategic KPI) */
         .stats-bar {
             margin-top: 64px;
             padding: 32px;
@@ -200,21 +210,30 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-lg);
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 24px;
             box-shadow: var(--shadow-sm);
         }
 
         .stat-item h3 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--primary);
+            letter-spacing: -0.02em;
         }
 
         .stat-item p {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .stat-item span {
+            font-size: 0.85rem;
             color: var(--text-muted);
-            font-weight: 600;
+            display: block;
+            font-weight: 500;
         }
 
         /* Calculator Section */
@@ -269,7 +288,7 @@
             margin: 12px 0;
         }
 
-        /* Use Cases (Exemples Métiers) */
+        /* Use Cases (Texte Centré) */
         .section {
             padding: 96px 0;
         }
@@ -308,6 +327,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            text-align: center; /* Textes centrés */
             transition: all 0.3s ease;
         }
 
@@ -318,12 +338,12 @@
 
         .use-case-tag {
             display: inline-block;
-            padding: 4px 12px;
-            border-radius: 6px;
+            padding: 6px 14px;
+            border-radius: 9999px;
             font-size: 0.8rem;
             font-weight: 700;
             text-transform: uppercase;
-            margin-bottom: 16px;
+            margin: 0 auto 16px;
         }
 
         .tag-compta { background-color: #fef3c7; color: #92400e; }
@@ -345,15 +365,16 @@
 
         .metric-box {
             background-color: var(--accent-green-light);
-            border-left: 4px solid var(--accent-green);
+            border: 1px solid rgba(16, 185, 129, 0.2);
             padding: 12px 16px;
-            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            border-radius: var(--radius-md);
             font-weight: 700;
             color: #065f46;
             font-size: 0.9rem;
+            text-align: center;
         }
 
-        /* Process Section */
+        /* Process Section (Texte Centré) */
         .process-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -365,13 +386,14 @@
             padding: 32px 24px;
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
+            text-align: center; /* Textes centrés */
         }
 
         .step-number {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--primary);
-            opacity: 0.3;
+            opacity: 0.35;
             margin-bottom: 8px;
         }
 
@@ -382,7 +404,7 @@
             margin-bottom: 8px;
         }
 
-        /* Guarantee / About Section */
+        /* Guarantee / Engagement */
         .about-box {
             background: var(--dark);
             color: var(--white);
@@ -449,42 +471,89 @@
             transform: translateY(-2px);
         }
 
-        .contact-details {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 32px;
-            flex-wrap: wrap;
-            font-size: 0.95rem;
-            opacity: 0.9;
-        }
-
-        .contact-details a {
-            color: var(--white);
-            text-decoration: underline;
-        }
-
+        /* Footer complet avec Liens Légaux */
         footer {
-            padding: 40px 0;
+            background-color: var(--white);
             border-top: 1px solid var(--border);
-            text-align: center;
+            padding: 64px 0 32px;
+            margin-top: 64px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand p {
             color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 16px;
+            max-width: 320px;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
             font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 16px;
         }
 
         @media (max-width: 900px) {
             .hero h1 { font-size: 2.25rem; }
             .calc-card, .about-box { grid-template-columns: 1fr; padding: 32px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
             .nav-links { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
+    <!-- Header avec Logo Vectoriel SVG -->
     <header>
         <div class="container nav-wrapper">
-            <a href="#" class="logo"><span>IA</span>Consulting</a>
+            <a href="#" class="brand-logo">
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="100" height="100" rx="24" fill="#4F46E5"/>
+                    <path d="M30 70L45 35L60 70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M36 56H54" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                    <circle cx="70" cy="32" r="7" fill="#10B981"/>
+                    <path d="M55 37L65 33" stroke="#10B981" stroke-width="4" stroke-dasharray="2 2"/>
+                </svg>
+                <div class="brand-text">AURA <span>IA</span></div>
+            </a>
             <ul class="nav-links">
                 <li><a href="#calculateur">Simulateur ROI</a></li>
                 <li><a href="#cas-pratiques">Cas Pratiques</a></li>
@@ -505,19 +574,22 @@
                 <a href="#calculateur" class="btn btn-secondary">Simuler mon gain financier</a>
             </div>
 
-            <!-- Stats Bar -->
+            <!-- Promesses & KPIs Stratégiques -->
             <div class="stats-bar">
                 <div class="stat-item">
-                    <h3>-70%</h3>
-                    <p>Temps de saisie administrative</p>
+                    <h3>+35%</h3>
+                    <p>Marge Opérationnelle</p>
+                    <span>Temps administratif réalloué</span>
                 </div>
                 <div class="stat-item">
-                    <h3>30 à 60j</h3>
-                    <p>Retour sur investissement direct</p>
+                    <h3>< 90 Jours</h3>
+                    <p>Payback Garanti</p>
+                    <span>Rentabilité directe de la mission</span>
                 </div>
                 <div class="stat-item">
-                    <h3>0€</h3>
-                    <p>Besoin de recrutement supplémentaire</p>
+                    <h3>100%</h3>
+                    <p>Souverain & Sécurisé</p>
+                    <span>Conformité RGPD & étanchéité données</span>
                 </div>
             </div>
         </div>
@@ -546,7 +618,7 @@
         </div>
     </section>
 
-    <!-- Real Use Cases (Exemples Métiers) -->
+    <!-- Real Use Cases (Textes Centrés) -->
     <section id="cas-pratiques" class="section">
         <div class="container">
             <div class="section-header">
@@ -594,7 +666,7 @@
         </div>
     </section>
 
-    <!-- Method -->
+    <!-- Method (Textes Centrés) -->
     <section id="methode" class="section" style="background-color: var(--white); border-top: 1px solid var(--border);">
         <div class="container">
             <div class="section-header">
@@ -649,18 +721,62 @@
                 <h2>Prêt à éliminer la dette administrative de votre PME ?</h2>
                 <p>Réservez un diagnostic gratuit de 30 minutes avec un expert. Nous analyserons ensemble vos premiers leviers d'économies de temps et de coûts.</p>
                 <a href="https://calendly.com" target="_blank" class="btn btn-cta">Réserver mon audit gratuit de 30 min</a>
-                <div class="contact-details">
-                    <span>📧 Email direct : <a href="mailto:contact@votre-domaine.com">contact@votre-domaine.com</a></span>
-                    <span>💼 LinkedIn : <a href="https://linkedin.com" target="_blank">Profil Professionnel</a></span>
-                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Complet avec Liens Légaux -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Consultant IA & Performance Opérationnelle. Tous droits réservés.</p>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="brand-logo">
+                        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="100" height="100" rx="24" fill="#4F46E5"/>
+                            <path d="M30 70L45 35L60 70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M36 56H54" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                            <circle cx="70" cy="32" r="7" fill="#10B981"/>
+                        </svg>
+                        <div class="brand-text">AURA <span>IA</span></div>
+                    </a>
+                    <p>Conseil en efficacité opérationnelle et intégration d'Intelligence Artificielle pour PME & TPE.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#calculateur">Simulateur ROI</a></li>
+                        <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+                        <li><a href="#methode">Méthodologie</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Expertise</h4>
+                    <ul>
+                        <li><a href="#cas-pratiques">Automation Compta</a></li>
+                        <li><a href="#cas-pratiques">Performance RH</a></li>
+                        <li><a href="#cas-pratiques">Efficacité Commerciale</a></li>
+                        <li><a href="#methode">Formations IA</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Informations Légales</h4>
+                    <ul>
+                        <li><a href="#">Mentions Légales</a></li>
+                        <li><a href="#">Politique de Confidentialité</a></li>
+                        <li><a href="#">Conditions Générales (CGV)</a></li>
+                        <li><a href="#">Gestion des Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 AURA IA Consulting. Tous droits réservés.</p>
+                <p>Conçu pour maximiser la rentabilité des PME françaises.</p>
+            </div>
         </div>
     </footer>
 
