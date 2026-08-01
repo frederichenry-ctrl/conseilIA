@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultant IA & Performance Opérationnelle | PME & TPE</title>
-    <meta name="description" content="Conseil et intégration d'IA pour PME. Optimisez la masse salariale des fonctions supports (Compta, RH, ADV) et éliminez la dette administrative.">
+    <title>AURA IA | Performance Opérationnelle & Conseil IA pour PME</title>
+    <meta name="description" content="Conseil et intégration d'IA pour PME & TPE. Libérez vos équipes des tâches rébarbatives sur la Compta, les RH et la Vente pour booster votre rentabilité.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,7 +72,7 @@
             height: 80px;
         }
 
-        /* Logo Brand SVG */
+        /* Nouveau Logo Hexagone IA (SVG) */
         .brand-logo {
             display: flex;
             align-items: center;
@@ -81,12 +81,12 @@
         }
 
         .brand-logo svg {
-            width: 38px;
-            height: 38px;
+            width: 42px;
+            height: 42px;
         }
 
         .brand-text {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--dark);
             letter-spacing: -0.03em;
@@ -177,7 +177,7 @@
             font-weight: 800;
             color: var(--dark);
             line-height: 1.15;
-            max-width: 900px;
+            max-width: 920px;
             margin: 0 auto 24px;
             letter-spacing: -0.025em;
         }
@@ -191,7 +191,7 @@
         .hero p {
             font-size: 1.25rem;
             color: var(--text-muted);
-            max-width: 720px;
+            max-width: 740px;
             margin: 0 auto 40px;
         }
 
@@ -202,7 +202,7 @@
             flex-wrap: wrap;
         }
 
-        /* Trust Stats Bar (Nouvelles Promesses Strategic KPI) */
+        /* Stats Bar */
         .stats-bar {
             margin-top: 64px;
             padding: 32px;
@@ -288,7 +288,7 @@
             margin: 12px 0;
         }
 
-        /* Use Cases (Texte Centré) */
+        /* Section Layouts (Textes Centrés) */
         .section {
             padding: 96px 0;
         }
@@ -327,7 +327,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            text-align: center; /* Textes centrés */
+            text-align: center;
             transition: all 0.3s ease;
         }
 
@@ -374,7 +374,7 @@
             text-align: center;
         }
 
-        /* Process Section (Texte Centré) */
+        /* Process Section */
         .process-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -386,7 +386,7 @@
             padding: 32px 24px;
             border-radius: var(--radius-md);
             border: 1px solid var(--border);
-            text-align: center; /* Textes centrés */
+            text-align: center;
         }
 
         .step-number {
@@ -404,7 +404,69 @@
             margin-bottom: 8px;
         }
 
-        /* Guarantee / Engagement */
+        /* Testimonials Section */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 32px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-stars {
+            color: #f59e0b;
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .author-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Guarantee / Philosophy */
         .about-box {
             background: var(--dark);
             color: var(--white);
@@ -471,7 +533,7 @@
             transform: translateY(-2px);
         }
 
-        /* Footer complet avec Liens Légaux */
+        /* Footer */
         footer {
             background-color: var(--white);
             border-top: 1px solid var(--border);
@@ -541,22 +603,21 @@
 </head>
 <body>
 
-    <!-- Header avec Logo Vectoriel SVG -->
+    <!-- Header avec Logo SVG Hexagone IA -->
     <header>
         <div class="container nav-wrapper">
             <a href="#" class="brand-logo">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" rx="24" fill="#4F46E5"/>
-                    <path d="M30 70L45 35L60 70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M36 56H54" stroke="white" stroke-width="8" stroke-linecap="round"/>
-                    <circle cx="70" cy="32" r="7" fill="#10B981"/>
-                    <path d="M55 37L65 33" stroke="#10B981" stroke-width="4" stroke-dasharray="2 2"/>
+                    <path d="M50 10L85 30V70L50 90L15 70V30L50 10Z" fill="#4F46E5" fill-opacity="0.1" stroke="#4F46E5" stroke-width="6"/>
+                    <circle cx="50" cy="50" r="12" fill="#4F46E5"/>
+                    <path d="M50 22V38M50 62V78M26 36L40 44M60 56L74 64M26 64L40 56M60 44L74 36" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
                 </svg>
                 <div class="brand-text">AURA <span>IA</span></div>
             </a>
             <ul class="nav-links">
                 <li><a href="#calculateur">Simulateur ROI</a></li>
                 <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+                <li><a href="#temoignages">Témoignages</a></li>
                 <li><a href="#methode">Méthode</a></li>
                 <li><a href="#contact" class="btn btn-primary">Réserver un audit</a></li>
             </ul>
@@ -566,30 +627,30 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <span class="badge">⚡ Optimisation de la Masse Salariale & IA</span>
-            <h1>Économisez jusqu'à <span>15 heures par semaine</span> sur vos fonctions supports</h1>
-            <p>J'aide les dirigeants de PME et TPE à supprimer la dette administrative, automatiser les tâches répétitives (RH, Compta, Ventes) et éviter des recrutements coûteux grâce à l'Intelligence Artificielle.</p>
+            <span class="badge">⚡ Valorisation du Capital Humain & IA</span>
+            <h1>Débarrassez vos équipes de l'administratif & <span>boostez votre rentabilité</span></h1>
+            <p>J'accompagne les dirigeants de PME et TPE à automatiser les tâches répétitives et chronophages (RH, Compta, ADV) pour permettre à leurs collaborateurs de se concentrer sur des missions à haute valeur ajoutée.</p>
             <div class="hero-cta">
                 <a href="#contact" class="btn btn-primary">Réserver un audit d'efficacité (30 min offertes)</a>
-                <a href="#calculateur" class="btn btn-secondary">Simuler mon gain financier</a>
+                <a href="#calculateur" class="btn btn-secondary">Simuler la valeur libérée</a>
             </div>
 
-            <!-- Promesses & KPIs Stratégiques -->
+            <!-- Strategic KPIs -->
             <div class="stats-bar">
                 <div class="stat-item">
-                    <h3>+35%</h3>
-                    <p>Marge Opérationnelle</p>
-                    <span>Temps administratif réalloué</span>
+                    <h3>100%</h3>
+                    <p>Temps Utile Retrouvé</p>
+                    <span>Orientation vers des tâches rentables</span>
                 </div>
                 <div class="stat-item">
                     <h3>< 90 Jours</h3>
                     <p>Payback Garanti</p>
-                    <span>Rentabilité directe de la mission</span>
+                    <span>Rentabilité rapide de la mission</span>
                 </div>
                 <div class="stat-item">
                     <h3>100%</h3>
                     <p>Souverain & Sécurisé</p>
-                    <span>Conformité RGPD & étanchéité données</span>
+                    <span>Conformité RGPD & sécurité des données</span>
                 </div>
             </div>
         </div>
@@ -600,19 +661,19 @@
         <div class="container">
             <div class="calc-card">
                 <div class="calc-inputs">
-                    <h2>Simulez vos économies annuelles</h2>
-                    <p style="color: #94a3b8; margin-bottom: 24px;">Découvrez combien vous coûte l'administratif répétitif sur vos équipes supports.</p>
+                    <h2>Simulez la valeur temps libérée</h2>
+                    <p style="color: #94a3b8; margin-bottom: 24px;">Calculez l'équivalent financier du temps gâché par vos équipes sur des tâches administratives répétitives.</p>
                     
-                    <label for="employees">Nombre de collaborateurs (Compta, RH, ADV, Admin) :</label>
+                    <label for="employees">Nombre de collaborateurs supports (Compta, RH, ADV, Admin) :</label>
                     <input type="number" id="employees" value="3" min="1" max="50" oninput="calculateROI()">
                     
                     <label for="hours">Heures/semaine gâchées par personne sur du travail répétitif :</label>
                     <input type="number" id="hours" value="6" min="1" max="20" oninput="calculateROI()">
                 </div>
                 <div class="calc-result">
-                    <span style="text-transform: uppercase; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; color: #94a3b8;">Économie potentielle estimée :</span>
+                    <span style="text-transform: uppercase; font-size: 0.85rem; font-weight: 700; letter-spacing: 1px; color: #94a3b8;">Valeur temps réinjectable :</span>
                     <div class="number" id="roi-value">25 380 €</div>
-                    <p style="font-size: 0.9rem; color: #cbd5e1;">par an réinjectables directement dans votre marge nette.</p>
+                    <p style="font-size: 0.9rem; color: #cbd5e1;">par an réallouables à la satisfaction client et au développement commercial.</p>
                 </div>
             </div>
         </div>
@@ -623,7 +684,7 @@
         <div class="container">
             <div class="section-header">
                 <h2>Impact direct sur vos fonctions supports</h2>
-                <p>Pas de théories abstraites : voici exactement ce que nous automatisons chez nos clients pour libérer de la valeur immédiatement.</p>
+                <p>Voici comment nous soulageons concrètement vos collaborateurs pour leur redonner du temps métier stratégique.</p>
             </div>
             
             <div class="use-case-grid">
@@ -631,11 +692,11 @@
                 <div class="use-case-card">
                     <div>
                         <span class="use-case-tag tag-compta">Comptabilité & Finance</span>
-                        <h3>Pré-imputation des factures & Relances</h3>
-                        <p>Extraction automatique des données de factures PDF (même complexes/manuscrites), rapprochement comptable et génération de relances d'impayés personnalisées par IA.</p>
+                        <h3>Gestion documentaire & Relances</h3>
+                        <p>L'IA extrait et pré-saisit les données de factures PDF et gère les brouillons de relance. Votre comptable se concentre sur l'analyse financière et la gestion de la trésorerie.</p>
                     </div>
                     <div class="metric-box">
-                        📉 ROI : -80% de temps de saisie | Gain : ~10h/mois par comptable
+                        📉 Impact : -80% de temps de saisie | Focus sur le conseil financier
                     </div>
                 </div>
 
@@ -643,11 +704,11 @@
                 <div class="use-case-card">
                     <div>
                         <span class="use-case-tag tag-rh">Ressources Humaines</span>
-                        <h3>Filtre de candidatures & FAQ Interne</h3>
-                        <p>Tri et synthèse des CV en 5 points clés par rapport au profil recherché. Mise en place d'un assistant IA interne répondant instantanément aux questions salariés sur la convention collective.</p>
+                        <h3>Présélection & Support Salariés</h3>
+                        <p>Synthèse automatique des CV et réponses instantanées aux questions courantes via un assistant interne. Votre responsable RH se consacre au climat social et au développement des compétences.</p>
                     </div>
                     <div class="metric-box">
-                        ⚡ ROI : -70% de temps sur le sourcing | 80% d'interruption RH en moins
+                        ⚡ Impact : -70% de temps administratif | Focus sur la rétention des talents
                     </div>
                 </div>
 
@@ -655,11 +716,65 @@
                 <div class="use-case-card">
                     <div>
                         <span class="use-case-tag tag-commerce">Commerce & ADV</span>
-                        <h3>Génération de devis & Traitement des e-mails</h3>
-                        <p>Transformation des demandes clients brutes en pré-devis structurés. Rédaction automatisée de brouillons de réponses personnalisés dans la boîte mail des commerciaux.</p>
+                        <h3>Pré-devis & Réponses Clients</h3>
+                        <p>Formatage automatique des demandes brutes et brouillons de réponses e-mails. Vos commerciaux passent plus de temps sur le terrain et en rendez-vous clients.</p>
                     </div>
                     <div class="metric-box">
-                        🚀 ROI : Vitesse de réponse x3 | Gain : 8h/semaine par commercial
+                        🚀 Impact : Vitesse de réponse x3 | Focus sur la clôture des ventes
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="temoignages" class="section" style="background-color: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Ce que disent les dirigeants</h2>
+                <p>Découvrez comment l'IA a permis à leurs équipes d'être plus sereines et plus efficaces au quotidien.</p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Notre comptable passait des journées entières à saisir des factures et courir après les justificatifs. L'automatisation a tout changé : elle a enfin du temps pour faire de l'analyse et nos relances clients sont devenues ultra-réactives."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MB</div>
+                        <div class="author-info">
+                            <h4>Marc B.</h4>
+                            <p>Directeur Général - PME BTP (35 salariés)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"L'assistant RH interne configuré sur notre convention collective a réduit de 80% les interruptions quotidiennes. Mon équipe RH est soulagée et peut enfin se concentrer sur l'onboarding et la formation."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SL</div>
+                        <div class="author-info">
+                            <h4>Sophie L.</h4>
+                            <p>DRH - Groupe Logistique (60 salariés)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div>
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Un ROI immédiat. Nous avons absorbé 30% de volume de commandes en plus cette année sans surcharger notre administration des ventes. Nos équipes adorent l'outil et ne reviendraient en arrière pour rien au monde."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">TD</div>
+                        <div class="author-info">
+                            <h4>Thomas D.</h4>
+                            <p>Fondateur - Négoce & Distribution (18 salariés)</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -667,32 +782,32 @@
     </section>
 
     <!-- Method (Textes Centrés) -->
-    <section id="methode" class="section" style="background-color: var(--white); border-top: 1px solid var(--border);">
+    <section id="methode" class="section">
         <div class="container">
             <div class="section-header">
-                <h2>Une méthodologie orientée Résultats</h2>
-                <p>Un déploiement sécurisé et rapide pour un retour sur investissement garanti.</p>
+                <h2>Une méthodologie axée sur l'Humain et le ROI</h2>
+                <p>Un accompagnement pas à pas pour garantir une adoption fluide par vos équipes.</p>
             </div>
             <div class="process-grid">
                 <div class="process-step">
                     <div class="step-number">01</div>
                     <h3>Audit d'Efficacité (1j)</h3>
-                    <p>Interviews flash de vos pôles supports pour cartographier les pertes de temps et chiffrer le ROI prévisionnel.</p>
+                    <p>Interviews de vos équipes pour identifier les frictions administratives et chiffrer la valeur temps à libérer.</p>
                 </div>
                 <div class="process-step">
                     <div class="step-number">02</div>
-                    <h3>Configuration & Workflows</h3>
-                    <p>Création des assistants IA sur-mesure et des automatisations sans perturber vos logiciels existants.</p>
+                    <h3>Configuration Sur-mesure</h3>
+                    <p>Création des assistants et workflows IA adaptés à vos méthodes, en toute sécurité pour vos données.</p>
                 </div>
                 <div class="process-step">
                     <div class="step-number">03</div>
-                    <h3>Formation Pratique</h3>
-                    <p>Ateliers de prise en main pour vos collaborateurs avec transmission de guides et prompts métiers prêts à l'emploi.</p>
+                    <h3>Formation & Accompagnement</h3>
+                    <p>Ateliers pratiques pour que vos collaborateurs prennent en main les outils sereinement et sans stress.</p>
                 </div>
                 <div class="process-step">
                     <div class="step-number">04</div>
-                    <h3>Mesure du ROI (J+30)</h3>
-                    <p>Contrôle du gain de temps réel et ajustements pour maximiser l'adoption par vos équipes.</p>
+                    <h3>Suivi de l'Adoption (J+30)</h3>
+                    <p>Mesure du gain de temps réel et ajustements continus pour garantir l'épanouissement de vos équipes.</p>
                 </div>
             </div>
         </div>
@@ -704,11 +819,11 @@
             <div class="about-box">
                 <div>
                     <h2>Engagement de Valeur</h2>
-                    <p class="about-quote">"L'objectif n'est pas de remplacer l'humain, mais de lui supprimer 100% du travail administratif rébarbatif."</p>
+                    <p class="about-quote">"L'IA est un superpouvoir donné à vos collaborateurs, pas un remplaçant."</p>
                 </div>
                 <div>
-                    <p>Spécialiste de l'organisation des fonctions supports en PME, je comprends précisément vos contraintes de rentabilité et la gestion de la masse salariale.</p>
-                    <p>Si la phase d'audit ne révèle pas un potentiel d'économie équivalent à au moins 3 fois le coût de notre prestation, nous nous engageons à ne pas poursuivre le projet.</p>
+                    <p>Spécialiste de l'organisation des fonctions supports, ma mission est de revaloriser le travail humain au sein des PME.</p>
+                    <p>En éliminant la pénibilité administrative, vos équipes retrouvent du sens dans leur quotidien et votre entreprise gagne directement en agilité et en rentabilité.</p>
                 </div>
             </div>
         </div>
@@ -718,24 +833,23 @@
     <section id="contact" class="section">
         <div class="container">
             <div class="cta-box">
-                <h2>Prêt à éliminer la dette administrative de votre PME ?</h2>
-                <p>Réservez un diagnostic gratuit de 30 minutes avec un expert. Nous analyserons ensemble vos premiers leviers d'économies de temps et de coûts.</p>
+                <h2>Prêt à libérer le potentiel de vos équipes ?</h2>
+                <p>Réservez un diagnostic gratuit de 30 minutes avec un expert. Identifions ensemble les premières tâches à automatiser pour redonner du souffle à votre entreprise.</p>
                 <a href="https://calendly.com" target="_blank" class="btn btn-cta">Réserver mon audit gratuit de 30 min</a>
             </div>
         </div>
     </section>
 
-    <!-- Footer Complet avec Liens Légaux -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="#" class="brand-logo">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100" height="100" rx="24" fill="#4F46E5"/>
-                            <path d="M30 70L45 35L60 70" stroke="white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M36 56H54" stroke="white" stroke-width="8" stroke-linecap="round"/>
-                            <circle cx="70" cy="32" r="7" fill="#10B981"/>
+                            <path d="M50 10L85 30V70L50 90L15 70V30L50 10Z" fill="#4F46E5" fill-opacity="0.1" stroke="#4F46E5" stroke-width="6"/>
+                            <circle cx="50" cy="50" r="12" fill="#4F46E5"/>
+                            <path d="M50 22V38M50 62V78M26 36L40 44M60 56L74 64M26 64L40 56M60 44L74 36" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
                         </svg>
                         <div class="brand-text">AURA <span>IA</span></div>
                     </a>
@@ -747,18 +861,18 @@
                     <ul>
                         <li><a href="#calculateur">Simulateur ROI</a></li>
                         <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+                        <li><a href="#temoignages">Témoignages</a></li>
                         <li><a href="#methode">Méthodologie</a></li>
-                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-column">
-                    <h4>Expertise</h4>
+                    <h4>Pôles Métiers</h4>
                     <ul>
                         <li><a href="#cas-pratiques">Automation Compta</a></li>
-                        <li><a href="#cas-pratiques">Performance RH</a></li>
-                        <li><a href="#cas-pratiques">Efficacité Commerciale</a></li>
-                        <li><a href="#methode">Formations IA</a></li>
+                        <li><a href="#cas-pratiques">Efficacité RH</a></li>
+                        <li><a href="#cas-pratiques">Soutien ADV & Ventes</a></li>
+                        <li><a href="#methode">Formation des Équipes</a></li>
                     </ul>
                 </div>
 
@@ -775,7 +889,7 @@
 
             <div class="footer-bottom">
                 <p>&copy; 2026 AURA IA Consulting. Tous droits réservés.</p>
-                <p>Conçu pour maximiser la rentabilité des PME françaises.</p>
+                <p>Valoriser l'Humain grâce à l'Intelligence Artificielle.</p>
             </div>
         </div>
     </footer>
@@ -785,13 +899,13 @@
         function calculateROI() {
             const employees = parseFloat(document.getElementById('employees').value) || 0;
             const hours = parseFloat(document.getElementById('hours').value) || 0;
-            const hourlyRate = 30; // Average loaded hourly rate in France (€30/h)
+            const hourlyRate = 30; // Taux horaire chargé moyen en France (€30/h)
             const weeksPerYear = 47;
 
-            // Total annual cost wasted = Employees * Hours/week * €30/h * 47 weeks
+            // Calcul de la valeur temps libérée
             const annualSaving = Math.round(employees * hours * hourlyRate * weeksPerYear);
             
-            // Format number with spaces
+            // Formatage avec espaces
             document.getElementById('roi-value').innerText = annualSaving.toLocaleString('fr-FR') + ' €';
         }
     </script>
