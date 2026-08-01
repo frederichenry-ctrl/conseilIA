@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA IA | Performance Opérationnelle & Conseil IA pour PME</title>
+    <title>FH Consulting | Optimization Opérationnelle & Conseil IA pour PME</title>
     <meta name="description" content="Conseil et intégration d'IA pour PME & TPE. Libérez vos équipes des tâches rébarbatives sur la Compta, les RH et la Vente pour booster votre rentabilité.">
     
     <!-- Google Fonts -->
@@ -13,10 +13,11 @@
     
     <style>
         :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --primary-light: #eef2ff;
-            --accent-green: #10b981;
+            --primary: #1e3a8a; /* Bleu Marine Institutionnel */
+            --primary-hover: #1e40af;
+            --primary-light: #eff6ff;
+            --accent: #0284c7; /* Cyan Business */
+            --accent-green: #059669; /* Émeraude Premium */
             --accent-green-light: #ecfdf5;
             --dark: #0f172a;
             --dark-surface: #1e293b;
@@ -28,8 +29,8 @@
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-            --radius-md: 12px;
-            --radius-lg: 20px;
+            --radius-md: 8px;
+            --radius-lg: 16px;
         }
 
         * {
@@ -59,7 +60,7 @@
         header {
             position: sticky;
             top: 0;
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
@@ -72,28 +73,29 @@
             height: 80px;
         }
 
-        /* Nouveau Logo Hexagone IA (SVG) */
+        /* Logo FH Consulting (SVG) */
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             text-decoration: none;
         }
 
         .brand-logo svg {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
         }
 
         .brand-text {
-            font-size: 1.4rem;
+            font-size: 1.35rem;
             font-weight: 800;
             color: var(--dark);
             letter-spacing: -0.03em;
         }
 
         .brand-text span {
-            color: var(--primary);
+            color: var(--accent);
+            font-weight: 600;
         }
 
         .nav-links {
@@ -115,7 +117,7 @@
             color: var(--primary);
         }
 
-        /* Buttons */
+        /* Buttons (Couleurs Sérieuses / Business) */
         .btn {
             display: inline-flex;
             align-items: center;
@@ -123,7 +125,7 @@
             padding: 14px 28px;
             border-radius: var(--radius-md);
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             text-decoration: none;
             transition: all 0.2s ease;
             cursor: pointer;
@@ -133,30 +135,30 @@
         .btn-primary {
             background-color: var(--primary);
             color: var(--white);
-            box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
         }
 
         .btn-primary:hover {
             background-color: var(--primary-hover);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
             background-color: var(--white);
             color: var(--dark);
-            border: 1px solid var(--border);
+            border: 1px solid #cbd5e1;
         }
 
         .btn-secondary:hover {
             background-color: var(--bg-light);
-            border-color: #cbd5e1;
+            border-color: #94a3b8;
         }
 
         /* Hero Section */
         .hero {
             padding: 96px 0 64px;
             text-align: center;
-            background: radial-gradient(100% 100% at 50% 0%, rgba(79, 70, 229, 0.1) 0%, rgba(248, 250, 252, 0) 100%);
+            background: radial-gradient(100% 100% at 50% 0%, rgba(30, 58, 138, 0.06) 0%, rgba(248, 250, 252, 0) 100%);
         }
 
         .badge {
@@ -170,6 +172,7 @@
             font-size: 0.875rem;
             font-weight: 700;
             margin-bottom: 24px;
+            border: 1px solid rgba(30, 58, 138, 0.15);
         }
 
         .hero h1 {
@@ -183,9 +186,7 @@
         }
 
         .hero h1 span {
-            background: linear-gradient(135deg, var(--primary) 0%, #06b6d4 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
         }
 
         .hero p {
@@ -202,7 +203,7 @@
             flex-wrap: wrap;
         }
 
-        /* Stats Bar */
+        /* Strategic Stats Bar */
         .stats-bar {
             margin-top: 64px;
             padding: 32px;
@@ -348,7 +349,7 @@
 
         .tag-compta { background-color: #fef3c7; color: #92400e; }
         .tag-rh { background-color: #fce7f3; color: #9d174d; }
-        .tag-commerce { background-color: #e0e7ff; color: #3730a3; }
+        .tag-commerce { background-color: #e0e7ff; color: #1e3a8a; }
 
         .use-case-card h3 {
             font-size: 1.35rem;
@@ -365,7 +366,7 @@
 
         .metric-box {
             background-color: var(--accent-green-light);
-            border: 1px solid rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(5, 150, 105, 0.2);
             padding: 12px 16px;
             border-radius: var(--radius-md);
             font-weight: 700;
@@ -404,68 +405,6 @@
             margin-bottom: 8px;
         }
 
-        /* Testimonials Section */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 32px;
-        }
-
-        .testimonial-card {
-            background: var(--white);
-            border-radius: var(--radius-lg);
-            border: 1px solid var(--border);
-            padding: 32px;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .testimonial-stars {
-            color: #f59e0b;
-            font-size: 1.2rem;
-            margin-bottom: 16px;
-        }
-
-        .testimonial-text {
-            font-size: 0.95rem;
-            color: var(--text-main);
-            font-style: italic;
-            margin-bottom: 24px;
-            line-height: 1.6;
-        }
-
-        .testimonial-author {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .author-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: var(--primary-light);
-            color: var(--primary);
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .author-info h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
-        .author-info p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
         /* Guarantee / Philosophy */
         .about-box {
             background: var(--dark);
@@ -501,7 +440,7 @@
         /* Call to Action */
         .cta-box {
             text-align: center;
-            background: linear-gradient(135deg, var(--primary) 0%, #06b6d4 100%);
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
             color: var(--white);
             border-radius: var(--radius-lg);
             padding: 64px 32px;
@@ -524,7 +463,7 @@
         .cta-box .btn-cta {
             background-color: var(--white);
             color: var(--primary);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             padding: 16px 36px;
         }
 
@@ -603,21 +542,24 @@
 </head>
 <body>
 
-    <!-- Header avec Logo SVG Hexagone IA -->
+    <!-- Header avec Logo FH Consulting SVG -->
     <header>
         <div class="container nav-wrapper">
             <a href="#" class="brand-logo">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M50 10L85 30V70L50 90L15 70V30L50 10Z" fill="#4F46E5" fill-opacity="0.1" stroke="#4F46E5" stroke-width="6"/>
-                    <circle cx="50" cy="50" r="12" fill="#4F46E5"/>
-                    <path d="M50 22V38M50 62V78M26 36L40 44M60 56L74 64M26 64L40 56M60 44L74 36" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
+                    <rect width="100" height="100" rx="20" fill="#0F172A"/>
+                    <path d="M25 25H42V42H25V25Z" fill="#1E3A8A"/>
+                    <path d="M25 25V75" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M25 50H55" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M55 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M75 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
+                    <path d="M55 50H75" stroke="#FFFFFF" stroke-width="10"/>
                 </svg>
-                <div class="brand-text">AURA <span>IA</span></div>
+                <div class="brand-text">FH <span>CONSULTING</span></div>
             </a>
             <ul class="nav-links">
                 <li><a href="#calculateur">Simulateur ROI</a></li>
                 <li><a href="#cas-pratiques">Cas Pratiques</a></li>
-                <li><a href="#temoignages">Témoignages</a></li>
                 <li><a href="#methode">Méthode</a></li>
                 <li><a href="#contact" class="btn btn-primary">Réserver un audit</a></li>
             </ul>
@@ -627,7 +569,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <span class="badge">⚡ Valorisation du Capital Humain & IA</span>
+            <span class="badge">⚡ Conseil en Performance Opérationnelle & IA</span>
             <h1>Débarrassez vos équipes de l'administratif & <span>boostez votre rentabilité</span></h1>
             <p>J'accompagne les dirigeants de PME et TPE à automatiser les tâches répétitives et chronophages (RH, Compta, ADV) pour permettre à leurs collaborateurs de se concentrer sur des missions à haute valeur ajoutée.</p>
             <div class="hero-cta">
@@ -635,22 +577,22 @@
                 <a href="#calculateur" class="btn btn-secondary">Simuler la valeur libérée</a>
             </div>
 
-            <!-- Strategic KPIs -->
+            <!-- Strategic Stats Bar -->
             <div class="stats-bar">
                 <div class="stat-item">
-                    <h3>100%</h3>
-                    <p>Temps Utile Retrouvé</p>
-                    <span>Orientation vers des tâches rentables</span>
+                    <h3>+35%</h3>
+                    <p>Efficacité Métier</p>
+                    <span>Temps réalloué aux projets à forte marge</span>
                 </div>
                 <div class="stat-item">
                     <h3>< 90 Jours</h3>
-                    <p>Payback Garanti</p>
+                    <p>Retour sur Investissement</p>
                     <span>Rentabilité rapide de la mission</span>
                 </div>
                 <div class="stat-item">
                     <h3>100%</h3>
                     <p>Souverain & Sécurisé</p>
-                    <span>Conformité RGPD & sécurité des données</span>
+                    <span>Conformité RGPD & étanchéité des données</span>
                 </div>
             </div>
         </div>
@@ -727,62 +669,8 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section id="temoignages" class="section" style="background-color: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-        <div class="container">
-            <div class="section-header">
-                <h2>Ce que disent les dirigeants</h2>
-                <p>Découvrez comment l'IA a permis à leurs équipes d'être plus sereines et plus efficaces au quotidien.</p>
-            </div>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div>
-                        <div class="testimonial-stars">★★★★★</div>
-                        <p class="testimonial-text">"Notre comptable passait des journées entières à saisir des factures et courir après les justificatifs. L'automatisation a tout changé : elle a enfin du temps pour faire de l'analyse et nos relances clients sont devenues ultra-réactives."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">MB</div>
-                        <div class="author-info">
-                            <h4>Marc B.</h4>
-                            <p>Directeur Général - PME BTP (35 salariés)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div>
-                        <div class="testimonial-stars">★★★★★</div>
-                        <p class="testimonial-text">"L'assistant RH interne configuré sur notre convention collective a réduit de 80% les interruptions quotidiennes. Mon équipe RH est soulagée et peut enfin se concentrer sur l'onboarding et la formation."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">SL</div>
-                        <div class="author-info">
-                            <h4>Sophie L.</h4>
-                            <p>DRH - Groupe Logistique (60 salariés)</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card">
-                    <div>
-                        <div class="testimonial-stars">★★★★★</div>
-                        <p class="testimonial-text">"Un ROI immédiat. Nous avons absorbé 30% de volume de commandes en plus cette année sans surcharger notre administration des ventes. Nos équipes adorent l'outil et ne reviendraient en arrière pour rien au monde."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">TD</div>
-                        <div class="author-info">
-                            <h4>Thomas D.</h4>
-                            <p>Fondateur - Négoce & Distribution (18 salariés)</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Method (Textes Centrés) -->
-    <section id="methode" class="section">
+    <section id="methode" class="section" style="background-color: var(--white); border-top: 1px solid var(--border);">
         <div class="container">
             <div class="section-header">
                 <h2>Une méthodologie axée sur l'Humain et le ROI</h2>
@@ -822,7 +710,7 @@
                     <p class="about-quote">"L'IA est un superpouvoir donné à vos collaborateurs, pas un remplaçant."</p>
                 </div>
                 <div>
-                    <p>Spécialiste de l'organisation des fonctions supports, ma mission est de revaloriser le travail humain au sein des PME.</p>
+                    <p>Spécialiste de l'organisation des fonctions supports, ma mission chez FH Consulting est de revaloriser le travail humain au sein des PME.</p>
                     <p>En éliminant la pénibilité administrative, vos équipes retrouvent du sens dans leur quotidien et votre entreprise gagne directement en agilité et en rentabilité.</p>
                 </div>
             </div>
@@ -847,11 +735,14 @@
                 <div class="footer-brand">
                     <a href="#" class="brand-logo">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M50 10L85 30V70L50 90L15 70V30L50 10Z" fill="#4F46E5" fill-opacity="0.1" stroke="#4F46E5" stroke-width="6"/>
-                            <circle cx="50" cy="50" r="12" fill="#4F46E5"/>
-                            <path d="M50 22V38M50 62V78M26 36L40 44M60 56L74 64M26 64L40 56M60 44L74 36" stroke="#10B981" stroke-width="5" stroke-linecap="round"/>
+                            <rect width="100" height="100" rx="20" fill="#0F172A"/>
+                            <path d="M25 25V75" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
+                            <path d="M25 50H55" stroke="#0284C7" stroke-width="10" stroke-linecap="round"/>
+                            <path d="M55 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
+                            <path d="M75 25V75" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round"/>
+                            <path d="M55 50H75" stroke="#FFFFFF" stroke-width="10"/>
                         </svg>
-                        <div class="brand-text">AURA <span>IA</span></div>
+                        <div class="brand-text">FH <span>CONSULTING</span></div>
                     </a>
                     <p>Conseil en efficacité opérationnelle et intégration d'Intelligence Artificielle pour PME & TPE.</p>
                 </div>
@@ -861,8 +752,8 @@
                     <ul>
                         <li><a href="#calculateur">Simulateur ROI</a></li>
                         <li><a href="#cas-pratiques">Cas Pratiques</a></li>
-                        <li><a href="#temoignages">Témoignages</a></li>
                         <li><a href="#methode">Méthodologie</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
 
@@ -888,7 +779,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2026 AURA IA Consulting. Tous droits réservés.</p>
+                <p>&copy; 2026 FH Consulting. Tous droits réservés.</p>
                 <p>Valoriser l'Humain grâce à l'Intelligence Artificielle.</p>
             </div>
         </div>
