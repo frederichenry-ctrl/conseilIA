@@ -73,7 +73,7 @@
             height: 80px;
         }
 
-        /* Logo FH Consulting (Harmonisé & Épuré SVG) */
+        /* Nouveau Logo FH Consulting Touchy & Moderne (SVG) */
         .brand-logo {
             display: flex;
             align-items: center;
@@ -375,6 +375,91 @@
             text-align: center;
         }
 
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -16px;
+            right: 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .price-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .price-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .price-amount {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 24px;
+        }
+
+        .price-amount span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .price-features li {
+            padding-left: 24px;
+            position: relative;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .price-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
         /* Process Section */
         .process-grid {
             display: grid;
@@ -542,24 +627,29 @@
 </head>
 <body>
 
-    <!-- Header avec Logo FH Consulting SVG Institutionnel -->
+    <!-- Header avec Logo FH Consulting Dynamic SVG -->
     <header>
         <div class="container nav-wrapper">
             <a href="#" class="brand-logo">
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="100" height="100" rx="18" fill="#0F172A"/>
-                    <!-- Letter F -->
-                    <path d="M26 26H52V36H38V46H48V56H38V74H26V26Z" fill="#0284C7"/>
-                    <!-- Letter H -->
-                    <path d="M56 26H68V44H76V26H88V74H76V54H68V74H56V26Z" fill="#FFFFFF"/>
-                    <!-- Accent Dot -->
-                    <circle cx="82" cy="20" r="5" fill="#059669"/>
+                    <defs>
+                        <linearGradient id="fhBlue" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#1E3A8A"/>
+                            <stop offset="100%" stop-color="#0284C7"/>
+                        </linearGradient>
+                    </defs>
+                    <!-- Rounded Shield/Node Frame -->
+                    <rect width="100" height="100" rx="22" fill="url(#fhBlue)"/>
+                    <!-- Geometric Interlocking F & H Lines -->
+                    <path d="M26 28H48M26 48H44M26 28V72" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                    <path d="M58 28V72M58 48H76M76 28V72" stroke="#10B981" stroke-width="8" stroke-linecap="round"/>
                 </svg>
                 <div class="brand-text">FH <span>CONSULTING</span></div>
             </a>
             <ul class="nav-links">
                 <li><a href="#calculateur">Simulateur ROI</a></li>
                 <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+                <li><a href="#tarifs">Offres & Tarifs</a></li>
                 <li><a href="#methode">Méthode</a></li>
                 <li><a href="#contact" class="btn btn-primary">Réserver un audit</a></li>
             </ul>
@@ -598,7 +688,7 @@
         </div>
     </section>
 
-    <!-- Interactive Calculator (Intitulé révisé exact) -->
+    <!-- Interactive Calculator -->
     <section id="calculateur" class="calc-section">
         <div class="container">
             <div class="calc-card">
@@ -669,8 +759,69 @@
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section id="tarifs" class="section" style="background-color: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+        <div class="container">
+            <div class="section-header">
+                <h2>Formules & Modalités d'Intervention</h2>
+                <p>Des tarifs clairs, adaptés à la taille de votre structure avec un ROI garanti dès la première phase.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Pack 1 -->
+                <div class="price-card">
+                    <div class="price-header">
+                        <h3>1. Audit & Diagnostic</h3>
+                        <p>Pour cartographier les opportunités et chiffrer vos gains potentiels.</p>
+                        <div class="price-amount">1 200 € <span>HT</span></div>
+                    </div>
+                    <ul class="price-features">
+                        <li>Interviews flash des pôles supports (1 jour)</li>
+                        <li>Cartographie des processus énergivores</li>
+                        <li>Rapport stratégique & calcul de ROI</li>
+                        <li>Déductible en cas de déploiement</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Demander un diagnostic</a>
+                </div>
+
+                <!-- Pack 2 (Featured) -->
+                <div class="price-card featured">
+                    <span class="price-badge">Le plus populaire</span>
+                    <div class="price-header">
+                        <h3>2. Intégration Pôle Cible</h3>
+                        <p>Mise en place opérationnelle sur un pôle métier prioritaire (ex: Compta ou RH).</p>
+                        <div class="price-amount">3 900 € <span>HT</span></div>
+                    </div>
+                    <ul class="price-features">
+                        <li>Inclus : Phase d'audit préalable</li>
+                        <li>Configuration des assistants & automatisations</li>
+                        <li>Tests de sécurité & étanchéité données</li>
+                        <li>Formation de l'équipe (1/2 journée)</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Lancer mon pôle prioritaire</a>
+                </div>
+
+                <!-- Pack 3 -->
+                <div class="price-card">
+                    <div class="price-header">
+                        <h3>3. Transformation Globale</h3>
+                        <p>Accompagnement sur-mesure multi-pôles pour une efficacité transversale.</p>
+                        <div class="price-amount">Sur devis <span>(TJM ~ 850€)</span></div>
+                    </div>
+                    <ul class="price-features">
+                        <li>Déploiement transversal (RH, Compta, ADV)</li>
+                        <li>Création d'assistants internes sécurisés</li>
+                        <li>Formation complète de l'ensemble des équipes</li>
+                        <li>Suivi de l'adoption à J+30 et J+60</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Demander une étude</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Method -->
-    <section id="methode" class="section" style="background-color: var(--white); border-top: 1px solid var(--border);">
+    <section id="methode" class="section">
         <div class="container">
             <div class="section-header">
                 <h2>Une méthodologie axée sur l'Humain et le ROI</h2>
@@ -735,10 +886,15 @@
                 <div class="footer-brand">
                     <a href="#" class="brand-logo">
                         <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <rect width="100" height="100" rx="18" fill="#0F172A"/>
-                            <path d="M26 26H52V36H38V46H48V56H38V74H26V26Z" fill="#0284C7"/>
-                            <path d="M56 26H68V44H76V26H88V74H76V54H68V74H56V26Z" fill="#FFFFFF"/>
-                            <circle cx="82" cy="20" r="5" fill="#059669"/>
+                            <defs>
+                                <linearGradient id="fhBlueFoot" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" stop-color="#1E3A8A"/>
+                                    <stop offset="100%" stop-color="#0284C7"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="100" height="100" rx="22" fill="url(#fhBlueFoot)"/>
+                            <path d="M26 28H48M26 48H44M26 28V72" stroke="white" stroke-width="8" stroke-linecap="round"/>
+                            <path d="M58 28V72M58 48H76M76 28V72" stroke="#10B981" stroke-width="8" stroke-linecap="round"/>
                         </svg>
                         <div class="brand-text">FH <span>CONSULTING</span></div>
                     </a>
@@ -750,6 +906,7 @@
                     <ul>
                         <li><a href="#calculateur">Simulateur ROI</a></li>
                         <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+                        <li><a href="#tarifs">Offres & Tarifs</a></li>
                         <li><a href="#methode">Méthodologie</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
