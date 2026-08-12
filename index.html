@@ -1,874 +1,1584 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ChantierCopilot AI</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<style>
-  * { -webkit-tap-highlight-color: transparent; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif; }
-  .no-scrollbar::-webkit-scrollbar { display: none; }
-  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FH Consulting | Performance Opérationnelle & Conseil IA pour PME</title>
+    <meta name="description" content="Conseil et intégration d'IA pour PME & TPE. Libérez vos équipes des tâches rébarbatives sur la Compta, les RH et la Vente pour booster votre rentabilité.">
 
-  .view { display: none; animation: fadeUp .28s ease both; }
-  .view.active { display: block; }
-  @keyframes fadeUp { from { opacity:0; transform: translateY(8px);} to {opacity:1; transform:translateY(0);} }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  .modal-overlay { transition: opacity .25s ease; }
-  .modal-sheet { transition: transform .3s cubic-bezier(.32,.72,0,1); }
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-hover: #1e40af;
+            --primary-light: #eff6ff;
+            --accent: #0284c7;
+            --accent-green: #059669;
+            --accent-green-light: #ecfdf5;
+            --dark: #0f172a;
+            --dark-surface: #1e293b;
+            --text-main: #334155;
+            --text-muted: #64748b;
+            --bg-light: #f8fafc;
+            --white: #ffffff;
+            --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-lg: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --radius-md: 8px;
+            --radius-lg: 16px;
+        }
 
-  /* Waveform animation */
-  .wave-bar { width: 4px; border-radius: 4px; background: #3b82f6; animation: waveScale 1.1s ease-in-out infinite; }
-  @keyframes waveScale { 0%,100% { transform: scaleY(.25);} 50% { transform: scaleY(1);} }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  .mic-pulse { animation: micPulse 1.8s ease-out infinite; }
-  @keyframes micPulse { 0% { box-shadow: 0 0 0 0 rgba(37,99,235,.55);} 100% { box-shadow: 0 0 0 24px rgba(37,99,235,0);} }
+        html {
+            scroll-behavior: smooth;
+        }
 
-  .tab-btn.active-tab { color: #60a5fa; }
-  .tab-btn.active-tab .tab-icon { color: #60a5fa; }
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-light);
+            line-height: 1.6;
+        }
 
-  input[type="text"], input[type="number"], textarea, select {
-    background: #0f172a; border: 1px solid #1e293b; color: #f1f5f9;
-  }
-  input:focus, textarea:focus, select:focus { outline: 2px solid #2563eb; outline-offset: 1px; border-color: #2563eb; }
+        img, svg { max-width: 100%; display: block; }
 
-  .card-tap:active { transform: scale(.98); }
-</style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Bloc de section réutilisable (fond blanc + bordures haut/bas) */
+        .section-panel {
+            background-color: var(--white);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Header / Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-decoration: none;
+        }
+
+        .brand-logo svg {
+            width: 44px;
+            height: 44px;
+        }
+
+        .brand-text {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--dark);
+            letter-spacing: -0.03em;
+        }
+
+        .brand-text span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--primary);
+        }
+
+        /* Le lien CTA doit rester blanc et bien ressortir, même dans .nav-links */
+        .nav-links a.nav-cta,
+        .nav-links a.nav-cta:hover,
+        .nav-links a.nav-cta:focus-visible {
+            color: var(--white);
+        }
+
+        .nav-cta {
+            padding: 10px 22px;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+        }
+
+        .nav-cta:hover,
+        .nav-cta:focus-visible {
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+            transform: translateY(-1px);
+        }
+
+        .nav-toggle {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--white);
+            cursor: pointer;
+        }
+
+        .nav-toggle span,
+        .nav-toggle span::before,
+        .nav-toggle span::after {
+            content: "";
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--dark);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-toggle span::before { position: absolute; top: -6px; }
+        .nav-toggle span::after { position: absolute; top: 6px; }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.25);
+        }
+
+        .btn-primary:hover,
+        .btn-primary:focus-visible {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background-color: var(--white);
+            color: var(--dark);
+            border: 1px solid #cbd5e1;
+        }
+
+        .btn-secondary:hover,
+        .btn-secondary:focus-visible {
+            background-color: var(--bg-light);
+            border-color: #94a3b8;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 96px 0 64px;
+            text-align: center;
+            background: radial-gradient(100% 100% at 50% 0%, rgba(30, 58, 138, 0.06) 0%, rgba(248, 250, 252, 0) 100%);
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 18px;
+            background-color: var(--primary-light);
+            color: var(--primary);
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            border: 1px solid rgba(30, 58, 138, 0.15);
+        }
+
+        .hero h1 {
+            font-size: 3.25rem;
+            font-weight: 800;
+            color: var(--dark);
+            line-height: 1.15;
+            max-width: 940px;
+            margin: 0 auto 24px;
+            letter-spacing: -0.025em;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 760px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* Strategic Stats Bar */
+        .stats-bar {
+            margin-top: 64px;
+            padding: 32px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat-item h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-item p {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .stat-item span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: block;
+            font-weight: 500;
+        }
+
+        /* Calculator Section */
+        .calc-section {
+            padding: 80px 0;
+        }
+
+        .calc-card {
+            background: var(--dark);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .calc-inputs p.calc-intro {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        .calc-inputs label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .calc-inputs input {
+            width: 100%;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--dark-surface);
+            background-color: var(--dark-surface);
+            color: var(--white);
+            font-size: 1.1rem;
+            margin-bottom: 24px;
+        }
+
+        .calc-result {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 32px;
+            border-radius: var(--radius-md);
+            text-align: center;
+        }
+
+        .calc-result .eyebrow {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: #94a3b8;
+        }
+
+        .calc-result .number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--accent-green);
+            margin: 12px 0;
+        }
+
+        .calc-result .caption {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        /* Section Layouts */
+        .section {
+            padding: 96px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 750px;
+            margin: 0 auto 64px;
+        }
+
+        .section-header h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .section-header p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        .use-case-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 36px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+
+        .use-case-tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin: 0 auto 16px;
+        }
+
+        .tag-compta { background-color: #fef3c7; color: #92400e; }
+        .tag-rh { background-color: #fce7f3; color: #9d174d; }
+        .tag-commerce { background-color: #e0e7ff; color: #1e3a8a; }
+
+        .use-case-card h3 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 12px;
+        }
+
+        .use-case-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+        }
+
+        .metric-box {
+            background-color: var(--accent-green-light);
+            border: 1px solid rgba(5, 150, 105, 0.2);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-weight: 700;
+            color: #065f46;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* Pricing Section */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+            align-items: stretch;
+        }
+
+        .price-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .price-card.featured {
+            border: 2px solid var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -16px;
+            right: 24px;
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .price-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        .price-header p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .price-amount {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 24px;
+        }
+
+        .price-amount span {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .price-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .price-features li {
+            padding-left: 24px;
+            position: relative;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .price-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        /* Process Section */
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+        }
+
+        .process-step {
+            background-color: var(--white);
+            padding: 32px 24px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .step-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            opacity: 0.35;
+            margin-bottom: 8px;
+        }
+
+        .process-step h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+        }
+
+        /* Philosophy */
+        .about-box {
+            background: var(--dark);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 64px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .about-box h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .about-quote {
+            font-size: 1.25rem;
+            font-style: italic;
+            border-left: 4px solid var(--accent-green);
+            padding-left: 20px;
+            margin-bottom: 24px;
+            color: #cbd5e1;
+        }
+
+        .about-box p {
+            color: #94a3b8;
+            margin-bottom: 16px;
+        }
+
+        /* Call to Action */
+        .cta-box {
+            text-align: center;
+            background: linear-gradient(135deg, var(--dark) 0%, var(--primary) 100%);
+            color: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 64px 32px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .cta-box h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-box p {
+            font-size: 1.2rem;
+            max-width: 650px;
+            margin: 0 auto 32px;
+            opacity: 0.95;
+        }
+
+        .cta-box .btn-cta {
+            background-color: var(--white);
+            color: var(--primary);
+            font-size: 1.05rem;
+            padding: 16px 36px;
+        }
+
+        .cta-box .btn-cta:hover,
+        .cta-box .btn-cta:focus-visible {
+            background-color: #f8fafc;
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--white);
+            border-top: 1px solid var(--border);
+            padding: 64px 0 32px;
+            margin-top: 64px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 16px;
+            max-width: 320px;
+        }
+
+        .footer-column h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 16px;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+        }
+
+        .footer-column ul li a:hover,
+        .footer-column ul li a:focus-visible {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        /* Bandeau cookies */
+        .cookie-banner {
+            position: fixed;
+            left: 24px;
+            right: 24px;
+            bottom: 24px;
+            z-index: 2000;
+            max-width: 640px;
+            margin: 0 auto;
+            background: var(--dark);
+            color: #e2e8f0;
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+            display: none;
+        }
+
+        .cookie-banner.visible {
+            display: block;
+        }
+
+        .cookie-banner p {
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 16px;
+        }
+
+        .cookie-banner p a {
+            color: #7dd3fc;
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .cookie-actions .btn {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+
+        .cookie-actions .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .cookie-actions .btn-outline:hover,
+        .cookie-actions .btn-outline:focus-visible {
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* ===== Panneau pages légales (overlay plein écran, sans changement de page) ===== */
+        .legal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 3000;
+            background: var(--bg-light);
+            overflow-y: auto;
+            display: none;
+        }
+
+        .legal-overlay.visible {
+            display: block;
+        }
+
+        .legal-overlay-header {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1;
+        }
+
+        .legal-overlay-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .legal-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 0;
+        }
+
+        .legal-back:hover,
+        .legal-back:focus-visible {
+            text-decoration: underline;
+        }
+
+        .legal-overlay main {
+            max-width: 820px;
+            margin: 0 auto;
+            padding: 64px 24px 96px;
+        }
+
+        .legal-content { display: none; }
+        .legal-content.active { display: block; }
+
+        .legal-content h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            color: var(--dark);
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .legal-content .updated {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 40px;
+        }
+
+        .legal-content h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin: 40px 0 12px;
+        }
+
+        .legal-content p,
+        .legal-content li {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+
+        .legal-content ul {
+            padding-left: 22px;
+            margin-bottom: 12px;
+        }
+
+        .legal-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .legal-content th,
+        .legal-content td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .legal-content th {
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .legal-placeholder {
+            background: #fef3c7;
+            padding: 1px 5px;
+            border-radius: 4px;
+            color: #92400e;
+            font-style: normal;
+        }
+
+        .legal-notice {
+            background: #eff6ff;
+            border: 1px solid rgba(30, 58, 138, 0.15);
+            border-radius: var(--radius-md);
+            padding: 16px 20px;
+            margin-bottom: 40px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        .legal-manage-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            background-color: var(--primary);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 8px;
+        }
+
+        .legal-manage-btn:hover,
+        .legal-manage-btn:focus-visible {
+            background-color: var(--primary-hover);
+        }
+
+        #legalCookieStatus {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        @media (max-width: 900px) {
+            .hero h1 { font-size: 2.25rem; }
+            .calc-card, .about-box { grid-template-columns: 1fr; padding: 32px; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+
+            .nav-toggle { display: flex; }
+
+            .nav-links {
+                position: absolute;
+                top: 80px;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                background: var(--white);
+                border-bottom: 1px solid var(--border);
+                box-shadow: var(--shadow-lg);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.25s ease;
+            }
+
+            .nav-links.open {
+                max-height: 400px;
+            }
+
+            .nav-links li {
+                width: 100%;
+                padding: 16px 24px;
+                border-top: 1px solid var(--border);
+            }
+
+            .nav-links a {
+                display: block;
+            }
+
+            .nav-links a.btn-primary {
+                display: inline-flex;
+            }
+
+            .nav-links a.nav-cta {
+                width: 100%;
+                justify-content: center;
+                margin-top: 4px;
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen">
+<body>
 
-<div class="max-w-md mx-auto min-h-screen relative bg-slate-950 flex flex-col">
+    <!-- Sprite SVG partagé par le logo (header + footer) -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <symbol id="fh-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="aiBlueGradient" x1="0" y1="0" x2="100" y2="100" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#1E3A8A"/>
+                    <stop offset="100%" stop-color="#0284C7"/>
+                </linearGradient>
+            </defs>
+            <rect width="100" height="100" rx="22" fill="url(#aiBlueGradient)"/>
+            <path d="M30 35 L50 25 L70 35 L70 65 L50 75 L30 65 Z" stroke="rgba(255,255,255,0.25)" stroke-width="3" fill="none"/>
+            <path d="M50 25 L50 75" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+            <path d="M30 35 L70 65" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+            <path d="M30 65 L70 35" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+            <circle cx="50" cy="50" r="10" fill="#10B981"/>
+            <circle cx="50" cy="50" r="5" fill="#FFFFFF"/>
+            <circle cx="30" cy="35" r="6" fill="#FFFFFF"/>
+            <circle cx="70" cy="35" r="6" fill="#FFFFFF"/>
+            <circle cx="30" cy="65" r="6" fill="#FFFFFF"/>
+            <circle cx="70" cy="65" r="6" fill="#FFFFFF"/>
+            <circle cx="50" cy="25" r="6" fill="#38BDF8"/>
+            <circle cx="50" cy="75" r="6" fill="#38BDF8"/>
+        </symbol>
+    </svg>
 
-  <!-- ===================== HEADER ===================== -->
-  <header class="sticky top-0 z-30 bg-slate-950/90 backdrop-blur border-b border-slate-800 px-4 pt-4 pb-3">
-    <div class="flex items-center justify-between">
-      <button id="projectSelectorBtn" class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 max-w-[70%]">
-        <i data-lucide="building-2" class="w-4 h-4 text-blue-500 shrink-0"></i>
-        <span id="activeProjectName" class="text-sm font-semibold truncate">Résidence Les Tilleuls</span>
-        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-500 shrink-0"></i>
-      </button>
-      <div id="netStatus" class="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-        <span id="netStatusLabel">En ligne</span>
-      </div>
-    </div>
-  </header>
+    <header>
+        <div class="container nav-wrapper">
+            <a href="#" class="brand-logo" aria-label="FH Consulting - Accueil">
+                <svg aria-hidden="true" focusable="false"><use href="#fh-logo"></use></svg>
+                <div class="brand-text">FH <span>CONSULTING</span></div>
+            </a>
 
-  <!-- ===================== MAIN ===================== -->
-  <main class="flex-1 overflow-y-auto no-scrollbar px-4 pt-4 pb-32">
+            <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Ouvrir le menu">
+                <span></span>
+            </button>
 
-    <!-- ---------- VIEW: DASHBOARD ---------- -->
-    <section id="view-dashboard" class="view active">
-      <h1 class="text-xl font-bold mb-1">Bonjour 👋</h1>
-      <p class="text-slate-400 text-sm mb-5">Voici l'état du chantier aujourd'hui.</p>
-
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5">
-        <div class="flex items-center justify-between mb-2">
-          <span class="text-sm text-slate-400">Avancement global</span>
-          <span id="progressPercentLabel" class="text-sm font-bold text-blue-400">62%</span>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#calculateur">Simulateur ROI</a></li>
+                <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+                <li><a href="#tarifs">Offres & Tarifs</a></li>
+                <li><a href="#methode">Méthode</a></li>
+                <li><a href="#contact" class="btn btn-primary nav-cta">Réserver un audit</a></li>
+            </ul>
         </div>
-        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden mb-4">
-          <div id="progressBar" class="h-full bg-blue-600 rounded-full" style="width:62%"></div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
-            <div class="flex items-center gap-2 mb-1">
-              <i data-lucide="alert-triangle" class="w-4 h-4 text-amber-500"></i>
-              <span class="text-xs text-slate-400">Réserves ouvertes</span>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <span class="badge">⚡ Conseil en Performance Opérationnelle & IA</span>
+            <h1>Révélez le potentiel de vos équipes & <span>boostez votre rentabilité</span></h1>
+            <p>J'accompagne les dirigeants de PME et TPE à automatiser les tâches répétitives et chronophages (RH, Compta, ADV) pour permettre à leurs collaborateurs de se concentrer sur des missions à haute valeur ajoutée.</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">Réserver un audit d'efficacité (30 min offertes)</a>
+                <a href="#calculateur" class="btn btn-secondary">Simuler la valeur libérée</a>
             </div>
-            <p id="statOpenReserves" class="text-2xl font-bold">0</p>
-          </div>
-          <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
-            <div class="flex items-center gap-2 mb-1">
-              <i data-lucide="euro" class="w-4 h-4 text-emerald-500"></i>
-              <span class="text-xs text-slate-400">Avenants en cours</span>
+
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <h3>10 à 15h</h3>
+                    <p>Temps Libéré par Semaine</p>
+                    <span>Par collaborateur support réorienté métier</span>
+                </div>
+                <div class="stat-item">
+                    <h3>Moins de 90 Jours</h3>
+                    <p>Retour sur Investissement</p>
+                    <span>Rentabilité rapide et mesurable de la mission</span>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Souverain & Sécurisé</p>
+                    <span>Conformité RGPD & étanchéité des données</span>
+                </div>
             </div>
-            <p id="statAvenantsTotal" class="text-2xl font-bold">0 €</p>
-          </div>
         </div>
-      </div>
-
-      <button id="ctaCopilot" class="w-full mb-6 bg-gradient-to-r from-blue-600 to-blue-500 rounded-2xl p-4 flex items-center gap-3 text-left active:scale-[.98] transition-transform">
-        <div class="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center shrink-0">
-          <i data-lucide="mic" class="w-5 h-5"></i>
-        </div>
-        <div class="flex-1">
-          <p class="font-semibold text-sm">Copilote IA</p>
-          <p class="text-xs text-blue-100">Dictez votre point chantier, l'IA structure tout.</p>
-        </div>
-        <i data-lucide="chevron-right" class="w-5 h-5 text-blue-100 shrink-0"></i>
-      </button>
-
-      <div class="flex items-center justify-between mb-3">
-        <h2 class="text-sm font-semibold text-slate-300">Activité récente</h2>
-      </div>
-      <div id="recentActivityList" class="space-y-3"></div>
-      <div id="emptyActivity" class="hidden text-center py-10 text-slate-500 text-sm">
-        <i data-lucide="clipboard-list" class="w-8 h-8 mx-auto mb-2 text-slate-700"></i>
-        Aucun rapport pour l'instant.<br>Appuyez sur le micro pour commencer.
-      </div>
     </section>
 
-    <!-- ---------- VIEW: RAPPORTS ---------- -->
-    <section id="view-rapports" class="view">
-      <h1 class="text-xl font-bold mb-4">Rapports</h1>
-      <div id="reportsList" class="space-y-3"></div>
-      <div id="emptyReports" class="hidden text-center py-16 text-slate-500 text-sm">
-        <i data-lucide="file-text" class="w-8 h-8 mx-auto mb-2 text-slate-700"></i>
-        Aucun compte-rendu généré.
-      </div>
+    <section id="calculateur" class="calc-section section-panel">
+        <div class="container">
+            <div class="calc-card">
+                <div class="calc-inputs">
+                    <h2>Simulez le temps gagné grâce à l'IA</h2>
+                    <p class="calc-intro">Mesurez la valeur du temps que l'IA peut libérer pour vos équipes sur leurs opérations quotidiennes.</p>
+
+                    <label for="employees">Nombre de collaborateurs supports (Compta, RH, ADV, Admin) :</label>
+                    <input type="number" id="employees" value="3" min="1" max="50">
+
+                    <label for="hours">Heures/semaine réallouables par personne grâce aux automatismes IA :</label>
+                    <input type="number" id="hours" value="6" min="1" max="20">
+                </div>
+                <div class="calc-result">
+                    <span class="eyebrow">Valeur temps créée &amp; réinvestie :</span>
+                    <div class="number" id="roi-value">25 380 €</div>
+                    <p class="caption">par an de capacité de travail réorientée vers la croissance et la relation client.</p>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- ---------- VIEW: RESERVES ---------- -->
-    <section id="view-reserves" class="view">
-      <h1 class="text-xl font-bold mb-4">Réserves &amp; anomalies</h1>
-      <div class="flex gap-2 mb-4">
-        <button data-filter="Ouverte" class="reserve-filter-btn flex-1 text-xs font-semibold py-2 rounded-lg bg-blue-600 text-white">Ouvertes</button>
-        <button data-filter="Levée" class="reserve-filter-btn flex-1 text-xs font-semibold py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400">Levées</button>
-        <button data-filter="Toutes" class="reserve-filter-btn flex-1 text-xs font-semibold py-2 rounded-lg bg-slate-900 border border-slate-800 text-slate-400">Toutes</button>
-      </div>
-      <div id="reservesList" class="space-y-3"></div>
-      <div id="emptyReserves" class="hidden text-center py-16 text-slate-500 text-sm">
-        <i data-lucide="check-circle-2" class="w-8 h-8 mx-auto mb-2 text-slate-700"></i>
-        Aucune réserve dans cette catégorie.
-      </div>
+    <section id="cas-pratiques" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Impact direct sur vos fonctions supports</h2>
+                <p>Voici comment nous soulageons concrètement vos collaborateurs pour leur redonner du temps métier stratégique.</p>
+            </div>
+
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <div>
+                        <span class="use-case-tag tag-compta">Comptabilité & Finance</span>
+                        <h3>Gestion documentaire & Relances</h3>
+                        <p>L'IA extrait et pré-saisit les données de factures PDF et gère les brouillons de relance. Votre comptable se concentre sur l'analyse financière et la gestion de la trésorerie.</p>
+                    </div>
+                    <div class="metric-box">
+                        Impact : -80% de temps de saisie | Focus sur le conseil financier
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div>
+                        <span class="use-case-tag tag-rh">Ressources Humaines</span>
+                        <h3>Présélection & Support Salariés</h3>
+                        <p>Synthèse automatique des CV et réponses instantanées aux questions courantes via un assistant interne. Votre responsable RH se consacre au climat social et au développement des compétences.</p>
+                    </div>
+                    <div class="metric-box">
+                        Impact : -70% de temps administratif | Focus sur la rétention des talents
+                    </div>
+                </div>
+
+                <div class="use-case-card">
+                    <div>
+                        <span class="use-case-tag tag-commerce">Commerce & ADV</span>
+                        <h3>Pré-devis & Réponses Clients</h3>
+                        <p>Formatage automatique des demandes brutes et brouillons de réponses e-mails. Vos commerciaux passent plus de temps sur le terrain et en rendez-vous clients.</p>
+                    </div>
+                    <div class="metric-box">
+                        Impact : Vitesse de réponse x3 | Focus sur la clôture des ventes
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
-    <!-- ---------- VIEW: FINANCES ---------- -->
-    <section id="view-finances" class="view">
-      <h1 class="text-xl font-bold mb-1">Avenants &amp; finances</h1>
-      <p class="text-slate-400 text-sm mb-4">Travaux supplémentaires détectés à la voix.</p>
+    <section id="tarifs" class="section section-panel">
+        <div class="container">
+            <div class="section-header">
+                <h2>Formules & Modalités d'Intervention</h2>
+                <p>Des tarifs clairs, adaptés à la taille de votre structure avec un ROI garanti dès la première phase.</p>
+            </div>
 
-      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 mb-5 flex items-center justify-between">
-        <div>
-          <p class="text-xs text-slate-400 mb-1">Total à valider (HT)</p>
-          <p id="financeTotal" class="text-2xl font-bold text-emerald-400">0 €</p>
+            <div class="pricing-grid">
+                <div class="price-card">
+                    <div class="price-header">
+                        <h3>1. Audit & Diagnostic</h3>
+                        <p>Pour cartographier les opportunités et chiffrer vos gains potentiels.</p>
+                        <div class="price-amount">1 200 € <span>HT</span></div>
+                    </div>
+                    <ul class="price-features">
+                        <li>Interviews flash des pôles supports (1 jour)</li>
+                        <li>Cartographie des processus énergivores</li>
+                        <li>Rapport stratégique & calcul de ROI</li>
+                        <li>Déductible en cas de déploiement</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Demander un diagnostic</a>
+                </div>
+
+                <div class="price-card featured">
+                    <span class="price-badge">Le plus populaire</span>
+                    <div class="price-header">
+                        <h3>2. Intégration Pôle Cible</h3>
+                        <p>Mise en place opérationnelle sur un pôle métier prioritaire (ex: Compta ou RH).</p>
+                        <div class="price-amount">3 900 € <span>HT</span></div>
+                    </div>
+                    <ul class="price-features">
+                        <li>Inclus : Phase d'audit préalable</li>
+                        <li>Configuration des assistants & automatisations</li>
+                        <li>Tests de sécurité & étanchéité données</li>
+                        <li>Formation de l'équipe (1/2 journée)</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-primary">Lancer mon pôle prioritaire</a>
+                </div>
+
+                <div class="price-card">
+                    <div class="price-header">
+                        <h3>3. Transformation Globale</h3>
+                        <p>Accompagnement sur-mesure multi-pôles pour une efficacité transversale.</p>
+                        <div class="price-amount">Sur devis <span>(TJM ~ 850€)</span></div>
+                    </div>
+                    <ul class="price-features">
+                        <li>Déploiement transversal (RH, Compta, ADV)</li>
+                        <li>Création d'assistants internes sécurisés</li>
+                        <li>Formation complète de l'ensemble des équipes</li>
+                        <li>Suivi de l'adoption à J+30 et J+60</li>
+                    </ul>
+                    <a href="#contact" class="btn btn-secondary">Demander une étude</a>
+                </div>
+            </div>
         </div>
-        <button id="exportFinanceBtn" class="flex items-center gap-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 px-3 py-2 rounded-lg">
-          <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Exporter
-        </button>
-      </div>
-
-      <div id="avenantsList" class="space-y-3"></div>
-      <div id="emptyAvenants" class="hidden text-center py-16 text-slate-500 text-sm">
-        <i data-lucide="receipt" class="w-8 h-8 mx-auto mb-2 text-slate-700"></i>
-        Aucun avenant détecté pour l'instant.
-      </div>
     </section>
 
-  </main>
-
-  <!-- ===================== BOTTOM NAV ===================== -->
-  <nav class="fixed bottom-0 left-0 right-0 z-40">
-    <div class="max-w-md mx-auto relative">
-      <div class="bg-slate-900/95 backdrop-blur border-t border-slate-800 px-2 pt-2 pb-[calc(env(safe-area-inset-bottom)+8px)] flex items-center justify-between">
-        <button data-tab="dashboard" class="tab-btn active-tab flex-1 flex flex-col items-center gap-1 py-1.5 text-slate-500 text-[10px] font-medium">
-          <i data-lucide="layout-dashboard" class="tab-icon w-5 h-5"></i> Dashboard
-        </button>
-        <button data-tab="rapports" class="tab-btn flex-1 flex flex-col items-center gap-1 py-1.5 text-slate-500 text-[10px] font-medium">
-          <i data-lucide="file-text" class="tab-icon w-5 h-5"></i> Rapports
-        </button>
-        <div class="flex-1"></div>
-        <button data-tab="reserves" class="tab-btn flex-1 flex flex-col items-center gap-1 py-1.5 text-slate-500 text-[10px] font-medium">
-          <i data-lucide="alert-triangle" class="tab-icon w-5 h-5"></i> Réserves
-        </button>
-        <button data-tab="finances" class="tab-btn flex-1 flex flex-col items-center gap-1 py-1.5 text-slate-500 text-[10px] font-medium">
-          <i data-lucide="euro" class="tab-icon w-5 h-5"></i> Finances
-        </button>
-      </div>
-      <!-- FAB Central -->
-      <button id="fabMic" class="mic-pulse absolute left-1/2 -translate-x-1/2 -top-7 w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-950/50 active:scale-95 transition-transform">
-        <i data-lucide="mic" class="w-7 h-7 text-white"></i>
-      </button>
-    </div>
-  </nav>
-
-  <!-- ===================== MODAL: ENREGISTREMENT VOCAL IA ===================== -->
-  <div id="voiceModal" class="fixed inset-0 z-50 hidden">
-    <div class="modal-overlay absolute inset-0 bg-slate-950"></div>
-    <div class="relative max-w-md mx-auto h-full flex flex-col">
-
-      <!-- Step: recording -->
-      <div id="stepRecording" class="flex-1 flex flex-col">
-        <div class="flex items-center justify-between px-4 pt-5">
-          <button id="closeVoiceModal" class="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center">
-            <i data-lucide="x" class="w-4 h-4"></i>
-          </button>
-          <span class="text-sm font-semibold text-slate-400">Copilote IA</span>
-          <span class="w-9"></span>
+    <section id="methode" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Une méthodologie axée sur l'Humain et le ROI</h2>
+                <p>Un accompagnement pas à pas pour garantir une adoption fluide par vos équipes.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="step-number">01</div>
+                    <h3>Audit d'Efficacité (1j)</h3>
+                    <p>Interviews de vos équipes pour identifier les frictions administratives et chiffrer la valeur temps à libérer.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">02</div>
+                    <h3>Configuration Sur-mesure</h3>
+                    <p>Création des assistants et workflows IA adaptés à vos méthodes, en toute sécurité pour vos données.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">03</div>
+                    <h3>Formation & Accompagnement</h3>
+                    <p>Ateliers pratiques pour que vos collaborateurs prennent en main les outils sereinement et sans stress.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">04</div>
+                    <h3>Suivi de l'Adoption (J+30)</h3>
+                    <p>Mesure du gain de temps réel et ajustements continus pour garantir l'épanouissement de vos équipes.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="flex-1 flex flex-col items-center justify-center px-6">
-          <div id="waveformBox" class="flex items-end gap-1 h-16 mb-8 hidden">
-            <!-- bars injected by JS -->
-          </div>
-          <div id="idleMicIcon" class="w-24 h-24 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center mb-8">
-            <i data-lucide="mic" class="w-9 h-9 text-blue-500"></i>
-          </div>
-          <p id="recordingStatusLabel" class="text-slate-400 text-sm mb-3 text-center">Appuyez pour dicter votre point chantier</p>
-          <div class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 min-h-[110px] mb-6">
-            <p class="text-[10px] uppercase tracking-wider text-slate-500 mb-2">Transcription live...</p>
-            <p id="liveTranscript" class="text-sm text-slate-200 leading-relaxed">—</p>
-          </div>
+    <section class="section">
+        <div class="container">
+            <div class="about-box">
+                <div>
+                    <h2>Engagement de Valeur</h2>
+                    <p class="about-quote">« L'IA est un superpouvoir donné à vos collaborateurs, pas un remplaçant. »</p>
+                </div>
+                <div>
+                    <p>Spécialiste de l'organisation des fonctions supports, ma mission chez FH Consulting est de revaloriser le travail humain au sein des PME.</p>
+                    <p>En éliminant la pénibilité administrative, vos équipes retrouvent du sens dans leur quotidien et votre entreprise gagne directement en agilité et en rentabilité.</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="px-6 pb-10 flex flex-col items-center gap-4">
-          <button id="recordBtn" class="w-20 h-20 rounded-full bg-blue-600 flex items-center justify-center active:scale-95 transition-transform">
-            <i data-lucide="mic" class="w-8 h-8 text-white"></i>
-          </button>
-          <button id="processBtn" class="hidden w-full bg-emerald-600 hover:bg-emerald-500 rounded-xl py-3.5 font-semibold flex items-center justify-center gap-2">
-            <i data-lucide="sparkles" class="w-4 h-4"></i> Traiter avec l'Agent IA
-          </button>
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Prêt à libérer le potentiel de vos équipes ?</h2>
+                <p>Réservez un diagnostic gratuit de 30 minutes avec un expert. Identifions ensemble les premières tâches à automatiser pour redonner du souffle à votre entreprise.</p>
+                <a href="https://calendly.com" target="_blank" rel="noopener" class="btn btn-cta">Réserver mon audit gratuit de 30 min</a>
+            </div>
         </div>
-      </div>
+    </section>
 
-      <!-- Step: processing -->
-      <div id="stepProcessing" class="hidden flex-1 flex flex-col items-center justify-center px-6">
-        <div class="w-16 h-16 rounded-full border-4 border-slate-800 border-t-blue-500 animate-spin mb-6"></div>
-        <p class="font-semibold mb-1">L'agent IA structure votre rapport</p>
-        <p class="text-slate-500 text-sm text-center">Extraction du compte-rendu, des réserves et des avenants...</p>
-      </div>
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="brand-logo" aria-label="FH Consulting - Accueil">
+                        <svg aria-hidden="true" focusable="false"><use href="#fh-logo"></use></svg>
+                        <div class="brand-text">FH <span>CONSULTING</span></div>
+                    </a>
+                    <p>Conseil en efficacité opérationnelle et intégration d'Intelligence Artificielle pour PME & TPE.</p>
+                </div>
 
-      <!-- Step: result -->
-      <div id="stepResult" class="hidden flex-1 flex flex-col overflow-hidden">
-        <div class="flex items-center justify-between px-4 pt-5 pb-3">
-          <span class="text-sm font-semibold flex items-center gap-2">
-            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i> Traitement terminé
-          </span>
-          <button id="closeResultBtn" class="w-9 h-9 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center">
-            <i data-lucide="x" class="w-4 h-4"></i>
-          </button>
+                <div class="footer-column">
+                    <h4>Navigation</h4>
+                    <ul>
+                        <li><a href="#calculateur">Simulateur ROI</a></li>
+                        <li><a href="#cas-pratiques">Cas Pratiques</a></li>
+                        <li><a href="#tarifs">Offres & Tarifs</a></li>
+                        <li><a href="#methode">Méthodologie</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Pôles Métiers</h4>
+                    <ul>
+                        <li><a href="#cas-pratiques">Automation Compta</a></li>
+                        <li><a href="#cas-pratiques">Efficacité RH</a></li>
+                        <li><a href="#cas-pratiques">Soutien ADV & Ventes</a></li>
+                        <li><a href="#methode">Formation des Équipes</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h4>Informations Légales</h4>
+                    <ul>
+                        <li><a href="#mentions-legales" data-legal="mentions-legales">Mentions Légales</a></li>
+                        <li><a href="#politique-confidentialite" data-legal="politique-confidentialite">Politique de Confidentialité</a></li>
+                        <li><a href="#cgv" data-legal="cgv">Conditions Générales (CGV)</a></li>
+                        <li><a href="#politique-cookies" data-legal="politique-cookies">Gestion des Cookies</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2026 FH Consulting. Tous droits réservés.</p>
+                <p>Valoriser l'Humain grâce à l'Intelligence Artificielle.</p>
+            </div>
         </div>
-        <div id="resultCardsWrap" class="flex-1 overflow-y-auto no-scrollbar px-4 pb-8 space-y-3"></div>
-      </div>
+    </footer>
 
+    <!-- ===== Panneau pages légales ===== -->
+    <div class="legal-overlay" id="legalOverlay" role="dialog" aria-modal="true" aria-label="Informations légales">
+        <div class="legal-overlay-header">
+            <div class="container">
+                <div class="brand-text">FH <span>CONSULTING</span></div>
+                <button type="button" class="legal-back" id="legalBack">&larr; Retour au site</button>
+            </div>
+        </div>
+        <main>
+            <div class="container" style="padding:0;">
+
+                <div class="legal-content" id="legal-mentions-legales">
+                    <h1>Mentions Légales</h1>
+                    <p class="updated">Dernière mise à jour : <span class="legal-placeholder">[à compléter]</span></p>
+                    <div class="legal-notice">Ce document est un modèle. Les champs surlignés en <span class="legal-placeholder">jaune</span> doivent être complétés avec les informations réelles de votre entreprise avant publication. En France, ces mentions sont une obligation légale (art. 6-III de la LCEN).</div>
+
+                    <h2>1. Éditeur du site</h2>
+                    <p>Le présent site est édité par :</p>
+                    <ul>
+                        <li>Raison sociale / Nom commercial : <span class="legal-placeholder">FH Consulting</span></li>
+                        <li>Forme juridique : <span class="legal-placeholder">[ex. Entreprise Individuelle / EURL / SASU...]</span></li>
+                        <li>Capital social (le cas échéant) : <span class="legal-placeholder">[montant]</span></li>
+                        <li>Adresse du siège social : <span class="legal-placeholder">[adresse complète]</span></li>
+                        <li>Numéro SIRET / SIREN : <span class="legal-placeholder">[numéro]</span></li>
+                        <li>Numéro de TVA intracommunautaire (le cas échéant) : <span class="legal-placeholder">[numéro]</span></li>
+                        <li>Responsable de la publication : <span class="legal-placeholder">[nom et prénom]</span></li>
+                        <li>Adresse e-mail de contact : <span class="legal-placeholder">[email]</span></li>
+                        <li>Téléphone : <span class="legal-placeholder">[numéro]</span></li>
+                    </ul>
+
+                    <h2>2. Hébergement</h2>
+                    <p>Le site est hébergé par :</p>
+                    <ul>
+                        <li>Nom de l'hébergeur : <span class="legal-placeholder">[ex. Vercel Inc. / OVHcloud / autre]</span></li>
+                        <li>Adresse : <span class="legal-placeholder">[adresse de l'hébergeur]</span></li>
+                        <li>Site web / Contact : <span class="legal-placeholder">[url ou contact]</span></li>
+                    </ul>
+
+                    <h2>3. Propriété intellectuelle</h2>
+                    <p>L'ensemble des contenus présents sur ce site (textes, graphismes, logo, icônes) sont, sauf mention contraire, la propriété exclusive de FH Consulting ou de ses partenaires. Toute reproduction, représentation, modification ou exploitation totale ou partielle de ces éléments, sans autorisation écrite préalable, est interdite et constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.</p>
+
+                    <h2>4. Responsabilité</h2>
+                    <p>FH Consulting s'efforce d'assurer l'exactitude des informations diffusées sur ce site, mais ne saurait être tenu responsable des erreurs, omissions, ou de l'indisponibilité des informations et services proposés. L'utilisateur est seul responsable de l'usage qu'il fait des informations mises à disposition.</p>
+
+                    <h2>5. Liens hypertextes</h2>
+                    <p>Le site peut contenir des liens vers d'autres sites. FH Consulting n'exerce aucun contrôle sur ces sites tiers et décline toute responsabilité quant à leur contenu.</p>
+
+                    <h2>6. Droit applicable</h2>
+                    <p>Le présent site et les présentes mentions légales sont soumis au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux français seront seuls compétents.</p>
+
+                    <h2>7. Contact</h2>
+                    <p>Pour toute question relative à ces mentions légales, vous pouvez nous contacter à l'adresse suivante : <span class="legal-placeholder">[email de contact]</span>.</p>
+                </div>
+
+                <div class="legal-content" id="legal-politique-confidentialite">
+                    <h1>Politique de Confidentialité</h1>
+                    <p class="updated">Dernière mise à jour : <span class="legal-placeholder">[à compléter]</span></p>
+                    <div class="legal-notice">Ce document est un modèle conforme aux grandes lignes du RGPD. Les champs en <span class="legal-placeholder">jaune</span> sont à compléter avec vos informations réelles (identité, outils utilisés, durées de conservation). Pour un site collectant des données sensibles ou à fort trafic, une relecture juridique est recommandée.</div>
+
+                    <h2>1. Responsable du traitement</h2>
+                    <p>Le responsable du traitement des données collectées sur ce site est FH Consulting, <span class="legal-placeholder">[forme juridique, adresse]</span>, joignable à l'adresse : <span class="legal-placeholder">[email de contact]</span>.</p>
+
+                    <h2>2. Données collectées</h2>
+                    <ul>
+                        <li>Données transmises via le formulaire de contact / simulateur ROI : <span class="legal-placeholder">[ex. nom, email, données saisies]</span></li>
+                        <li>Données de navigation (adresse IP, pages visitées, durée de visite) via les outils de mesure d'audience</li>
+                        <li>Données transmises via un service de prise de rendez-vous tiers (ex. Calendly) : <span class="legal-placeholder">[à préciser selon l'outil utilisé]</span></li>
+                    </ul>
+
+                    <h2>3. Finalités du traitement</h2>
+                    <ul>
+                        <li>Répondre à vos demandes de contact et d'audit</li>
+                        <li>Mesurer l'audience et améliorer le site</li>
+                        <li>Respecter nos obligations légales et comptables</li>
+                    </ul>
+
+                    <h2>4. Base légale</h2>
+                    <p>Les traitements réalisés reposent sur votre consentement (formulaires, cookies non essentiels), l'exécution de mesures précontractuelles (demande d'audit) ou l'intérêt légitime de FH Consulting à assurer le bon fonctionnement du site.</p>
+
+                    <h2>5. Durée de conservation</h2>
+                    <p>Vos données sont conservées pendant une durée de <span class="legal-placeholder">[ex. 3 ans à compter du dernier contact]</span>, sauf obligation légale de conservation plus longue.</p>
+
+                    <h2>6. Destinataires des données</h2>
+                    <p>Vos données sont destinées à FH Consulting et, le cas échéant, à ses sous-traitants techniques (hébergeur, outil de prise de rendez-vous, outil d'e-mailing), dans la stricte limite nécessaire à l'exécution de leurs prestations. Elles ne sont ni vendues, ni louées à des tiers.</p>
+
+                    <h2>7. Vos droits</h2>
+                    <p>Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification, d'effacement, de limitation, d'opposition et de portabilité de vos données. Vous pouvez exercer ces droits en écrivant à : <span class="legal-placeholder">[email de contact]</span>.</p>
+                    <p>Vous disposez également du droit d'introduire une réclamation auprès de la Commission Nationale de l'Informatique et des Libertés (CNIL) — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+
+                    <h2>8. Sécurité</h2>
+                    <p>FH Consulting met en œuvre les mesures techniques et organisationnelles raisonnables pour protéger vos données contre tout accès, modification, divulgation ou destruction non autorisés.</p>
+
+                    <h2>9. Cookies</h2>
+                    <p>Ce site utilise des cookies. Pour en savoir plus sur leur nature et la manière de les gérer, consultez notre <a href="#politique-cookies" data-legal="politique-cookies">politique de gestion des cookies</a>.</p>
+                </div>
+
+                <div class="legal-content" id="legal-cgv">
+                    <h1>Conditions Générales de Vente</h1>
+                    <p class="updated">Dernière mise à jour : <span class="legal-placeholder">[à compléter]</span></p>
+                    <div class="legal-notice">Ce document est un modèle générique de CGV pour une activité de conseil en prestation de services B2B. Les champs en <span class="legal-placeholder">jaune</span> sont à adapter à votre situation réelle. Une relecture par un professionnel du droit est recommandée avant mise en ligne, notamment si vous facturez des particuliers.</div>
+
+                    <h2>1. Objet</h2>
+                    <p>Les présentes Conditions Générales de Vente (CGV) régissent les relations contractuelles entre FH Consulting, <span class="legal-placeholder">[forme juridique]</span>, immatriculée sous le numéro <span class="legal-placeholder">[SIRET]</span>, et tout client professionnel (ci-après le « Client ») souhaitant bénéficier des prestations de conseil et d'intégration IA proposées (audit, intégration de pôle, transformation globale).</p>
+
+                    <h2>2. Prestations proposées</h2>
+                    <ul>
+                        <li>Audit & Diagnostic d'efficacité opérationnelle</li>
+                        <li>Intégration IA sur un pôle métier cible</li>
+                        <li>Transformation globale multi-pôles, sur devis</li>
+                    </ul>
+                    <p>Toute prestation sur-mesure fait l'objet d'un devis préalable détaillant le périmètre, les délais et le tarif applicable.</p>
+
+                    <h2>3. Devis et commande</h2>
+                    <p>Toute prestation fait l'objet d'un devis écrit accepté par le Client avant le démarrage de la mission. Le devis est valable <span class="legal-placeholder">[ex. 30 jours]</span> à compter de sa date d'émission.</p>
+
+                    <h2>4. Tarifs et modalités de paiement</h2>
+                    <p>Les tarifs indiqués sur le site sont exprimés en euros, hors taxes (HT). Ils sont susceptibles d'évoluer et n'engagent FH Consulting que pour la durée de validité du devis émis.</p>
+                    <ul>
+                        <li>Acompte à la commande : <span class="legal-placeholder">[ex. 30%]</span></li>
+                        <li>Solde : <span class="legal-placeholder">[ex. à la livraison / fin de mission]</span></li>
+                        <li>Délai de paiement : <span class="legal-placeholder">[ex. 30 jours nets à réception de facture]</span></li>
+                        <li>Pénalités de retard : conformément à la loi, taux applicable en cas de retard de paiement égal à <span class="legal-placeholder">[taux, ex. 3 fois le taux d'intérêt légal]</span>, ainsi qu'une indemnité forfaitaire pour frais de recouvrement de 40 €.</li>
+                    </ul>
+
+                    <h2>5. Délais d'exécution</h2>
+                    <p>Les délais de réalisation communiqués au Client sont donnés à titre indicatif et dépendent notamment de la disponibilité et de la réactivité du Client dans la fourniture des informations nécessaires à la mission.</p>
+
+                    <h2>6. Obligations du Client</h2>
+                    <p>Le Client s'engage à fournir à FH Consulting toutes les informations et accès nécessaires à la bonne exécution de la prestation, dans des délais raisonnables, et à désigner un interlocuteur référent pour le suivi de la mission.</p>
+
+                    <h2>7. Confidentialité</h2>
+                    <p>FH Consulting s'engage à traiter comme strictement confidentielles toutes les informations et données auxquelles elle pourrait avoir accès dans le cadre de la mission, pendant toute sa durée et après son terme.</p>
+
+                    <h2>8. Rétractation</h2>
+                    <p>Conformément à l'article L221-3 du Code de la consommation, le droit de rétractation ne s'applique pas aux contrats conclus entre professionnels dans le cadre de leur activité.</p>
+
+                    <h2>9. Résiliation</h2>
+                    <p>En cas de manquement grave de l'une des parties à ses obligations, l'autre partie pourra résilier la mission de plein droit, après mise en demeure restée infructueuse pendant <span class="legal-placeholder">[ex. 15 jours]</span>, sans préjudice de tout dommage et intérêt éventuel.</p>
+
+                    <h2>10. Responsabilité</h2>
+                    <p>FH Consulting est tenue à une obligation de moyens dans l'exécution de ses prestations. Sa responsabilité ne pourra être engagée qu'en cas de faute prouvée, et sera limitée au montant total facturé au titre de la mission concernée.</p>
+
+                    <h2>11. Droit applicable et litiges</h2>
+                    <p>Les présentes CGV sont soumises au droit français. En cas de litige, et à défaut de résolution amiable, les tribunaux compétents seront ceux du ressort du siège social de FH Consulting, sauf disposition légale contraire.</p>
+                </div>
+
+                <div class="legal-content" id="legal-politique-cookies">
+                    <h1>Gestion des Cookies</h1>
+                    <p class="updated">Dernière mise à jour : <span class="legal-placeholder">[à compléter]</span></p>
+                    <div class="legal-notice">Modèle générique à adapter selon les outils réellement installés sur le site (mesure d'audience, prise de rendez-vous, etc.). Le tableau ci-dessous liste des exemples courants — à mettre à jour selon votre configuration technique réelle.</div>
+
+                    <h2>Vos préférences actuelles</h2>
+                    <p>Votre choix concernant les cookies non essentiels :</p>
+                    <button type="button" class="legal-manage-btn" id="legalReopenBanner">Modifier mes préférences de cookies</button>
+                    <p id="legalCookieStatus"></p>
+
+                    <h2>1. Qu'est-ce qu'un cookie ?</h2>
+                    <p>Un cookie est un petit fichier texte déposé sur votre appareil lors de la visite d'un site web. Il permet notamment de mémoriser des informations relatives à votre navigation (préférences, mesure d'audience) pour une durée limitée.</p>
+
+                    <h2>2. Les cookies utilisés sur ce site</h2>
+                    <table>
+                        <thead>
+                            <tr><th>Type</th><th>Finalité</th><th>Consentement requis</th><th>Durée</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Cookies strictement nécessaires</td><td>Fonctionnement du site (ex. mémorisation de votre choix cookies)</td><td>Non</td><td><span class="legal-placeholder">13 mois max</span></td></tr>
+                            <tr><td>Mesure d'audience</td><td>Statistiques de visite anonymisées</td><td><span class="legal-placeholder">[Oui / Non selon outil]</span></td><td><span class="legal-placeholder">13 mois max</span></td></tr>
+                            <tr><td>Cookies tiers (prise de RDV, ex. Calendly)</td><td>Affichage du calendrier de réservation</td><td>Oui</td><td><span class="legal-placeholder">selon le fournisseur</span></td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>3. Comment gérer vos cookies ?</h2>
+                    <p>Vous pouvez à tout moment modifier votre choix via le bouton ci-dessus, ou directement depuis les paramètres de votre navigateur :</p>
+                    <ul>
+                        <li>Chrome : Paramètres &rarr; Confidentialité et sécurité &rarr; Cookies</li>
+                        <li>Firefox : Paramètres &rarr; Vie privée et sécurité</li>
+                        <li>Safari : Réglages &rarr; Confidentialité</li>
+                        <li>Edge : Paramètres &rarr; Cookies et autorisations de site</li>
+                    </ul>
+                    <p>Le refus de certains cookies peut limiter votre expérience sur le site (par exemple, l'affichage du calendrier de prise de rendez-vous).</p>
+
+                    <h2>4. Durée de conservation du consentement</h2>
+                    <p>Votre choix est conservé pendant <span class="legal-placeholder">[ex. 6 mois]</span>, à l'issue desquels votre consentement vous sera à nouveau demandé.</p>
+
+                    <h2>5. Contact</h2>
+                    <p>Pour toute question relative à cette politique, contactez-nous à : <span class="legal-placeholder">[email de contact]</span>.</p>
+                </div>
+
+            </div>
+        </main>
     </div>
-  </div>
 
-  <!-- ===================== MODAL: SELECTEUR PROJET ===================== -->
-  <div id="projectModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-slate-950/80" id="projectModalOverlay"></div>
-    <div class="modal-sheet absolute bottom-0 left-0 right-0 max-w-md mx-auto bg-slate-900 border-t border-slate-800 rounded-t-3xl p-5 pb-8">
-      <div class="w-10 h-1 bg-slate-700 rounded-full mx-auto mb-4"></div>
-      <h3 class="font-semibold mb-3">Chantiers</h3>
-      <div id="projectListModal" class="space-y-2"></div>
+    <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Gestion des cookies">
+        <p>Nous utilisons des cookies pour mesurer l'audience du site et améliorer votre expérience. Vous pouvez accepter, refuser, ou consulter notre <a href="#politique-cookies" data-legal="politique-cookies">politique de cookies</a>.</p>
+        <div class="cookie-actions">
+            <button type="button" class="btn btn-primary" id="cookieAccept">Accepter</button>
+            <button type="button" class="btn btn-outline" id="cookieRefuse">Refuser</button>
+        </div>
     </div>
-  </div>
 
-  <!-- ===================== MODAL: DETAIL RESERVE ===================== -->
-  <div id="reserveDetailModal" class="fixed inset-0 z-50 hidden">
-    <div class="absolute inset-0 bg-slate-950/80"></div>
-    <div class="modal-sheet absolute bottom-0 left-0 right-0 max-w-md mx-auto bg-slate-900 border-t border-slate-800 rounded-t-3xl p-5 pb-8">
-      <div class="w-10 h-1 bg-slate-700 rounded-full mx-auto mb-4"></div>
-      <div id="reserveDetailContent"></div>
-    </div>
-  </div>
+    <script>
+        (function () {
+            "use strict";
 
-</div>
+            // --- Bandeau cookies ---
+            var COOKIE_KEY = 'fh_cookie_consent'; // valeurs possibles : "accepted" / "refused"
+            var banner = document.getElementById('cookieBanner');
+            var acceptBtn = document.getElementById('cookieAccept');
+            var refuseBtn = document.getElementById('cookieRefuse');
 
-<script>
-/* ============================================================
-   ETAT & PERSISTENCE (Offline-first via localStorage)
-   ============================================================ */
-const STORAGE_KEY = "chantiercopilot_state_v1";
+            function getConsent() {
+                try { return localStorage.getItem(COOKIE_KEY); } catch (e) { return null; }
+            }
+            function setConsent(value) {
+                try { localStorage.setItem(COOKIE_KEY, value); } catch (e) { /* stockage indisponible */ }
+                if (banner) banner.classList.remove('visible');
+            }
 
-const defaultState = {
-  activeProjectId: "p1",
-  projects: [
-    { id: "p1", name: "Résidence Les Tilleuls", address: "12 rue des Tilleuls, Le Mans", clientName: "SCI Beauséjour", overallProgressPercent: 62, status: "En cours" },
-    { id: "p2", name: "Villa Cormier", address: "8 allée du Cormier, Allonnes", clientName: "M. et Mme Cormier", overallProgressPercent: 34, status: "En cours" }
-  ],
-  reports: [],
-  reserves: [],
-  avenants: []
-};
+            if (banner && !getConsent()) {
+                banner.classList.add('visible');
+            }
+            if (acceptBtn) acceptBtn.addEventListener('click', function () { setConsent('accepted'); });
+            if (refuseBtn) refuseBtn.addEventListener('click', function () { setConsent('refused'); });
 
-function loadState() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch (e) { console.warn("Lecture locale impossible", e); }
-  return JSON.parse(JSON.stringify(defaultState));
-}
-function saveState() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-  catch (e) { console.warn("Sauvegarde locale impossible", e); }
-}
+            // --- Simulateur ROI ---
+            var empInput = document.getElementById('employees');
+            var hrsInput = document.getElementById('hours');
+            var resultDiv = document.getElementById('roi-value');
+            var HOURLY_RATE = 30;
+            var WEEKS_PER_YEAR = 47;
 
-let state = loadState();
-let currentReserveFilter = "Ouverte";
-let recognition = null;
-let isRecording = false;
-let finalTranscript = "";
+            function calculateROI() {
+                if (!empInput || !hrsInput || !resultDiv) return;
+                var employees = parseFloat(empInput.value) || 0;
+                var hours = parseFloat(hrsInput.value) || 0;
+                var annualSaving = Math.round(employees * hours * HOURLY_RATE * WEEKS_PER_YEAR);
+                resultDiv.innerText = annualSaving.toLocaleString('fr-FR') + ' €';
+            }
 
-/* ============================================================
-   HELPERS
-   ============================================================ */
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
-function uid(prefix) { return prefix + "_" + Math.random().toString(36).slice(2, 9); }
-function euro(n) { return (n || 0).toLocaleString("fr-FR") + " €"; }
-function refreshIcons() { if (window.lucide) lucide.createIcons(); }
-function activeProject() { return state.projects.find(p => p.id === state.activeProjectId) || state.projects[0]; }
+            if (empInput && hrsInput) {
+                empInput.addEventListener('input', calculateROI);
+                hrsInput.addEventListener('input', calculateROI);
+                calculateROI(); // synchronise l'affichage avec les valeurs réelles au chargement
+            }
 
-const priorityStyles = {
-  "Haute": "bg-red-500/15 text-red-400 border-red-500/30",
-  "Moyenne": "bg-amber-500/15 text-amber-400 border-amber-500/30",
-  "Basse": "bg-slate-500/15 text-slate-400 border-slate-500/30"
-};
+            // --- Panneau pages légales ---
+            var legalOverlay = document.getElementById('legalOverlay');
+            var legalBack = document.getElementById('legalBack');
+            var legalReopenBanner = document.getElementById('legalReopenBanner');
+            var legalCookieStatus = document.getElementById('legalCookieStatus');
 
-/* ============================================================
-   NAVIGATION
-   ============================================================ */
-function switchTab(tab) {
-  $$(".view").forEach(v => v.classList.remove("active"));
-  $("#view-" + tab).classList.add("active");
-  $$(".tab-btn").forEach(b => b.classList.remove("active-tab"));
-  const btn = document.querySelector(`.tab-btn[data-tab="${tab}"]`);
-  if (btn) btn.classList.add("active-tab");
-  renderAll();
-}
-$$(".tab-btn").forEach(b => b.addEventListener("click", () => switchTab(b.dataset.tab)));
+            function refreshLegalCookieStatus() {
+                if (!legalCookieStatus) return;
+                var val = getConsent();
+                legalCookieStatus.textContent = val === 'accepted'
+                    ? 'Vous avez accepté les cookies non essentiels.'
+                    : val === 'refused'
+                        ? 'Vous avez refusé les cookies non essentiels.'
+                        : 'Aucun choix enregistré pour le moment.';
+            }
 
-/* ============================================================
-   RENDU DASHBOARD
-   ============================================================ */
-function renderDashboard() {
-  const p = activeProject();
-  $("#activeProjectName").textContent = p.name;
-  $("#progressPercentLabel").textContent = p.overallProgressPercent + "%";
-  $("#progressBar").style.width = p.overallProgressPercent + "%";
+            function openLegalPage(slug) {
+                if (!legalOverlay) return;
+                document.querySelectorAll('.legal-content').forEach(function (el) {
+                    el.classList.remove('active');
+                });
+                var target = document.getElementById('legal-' + slug);
+                if (!target) return;
+                target.classList.add('active');
+                legalOverlay.classList.add('visible');
+                legalOverlay.scrollTop = 0;
+                document.body.style.overflow = 'hidden';
+                if (slug === 'politique-cookies') refreshLegalCookieStatus();
+            }
 
-  const projReserves = state.reserves.filter(r => r.projectId === p.id);
-  const openReserves = projReserves.filter(r => r.status === "Ouverte");
-  $("#statOpenReserves").textContent = openReserves.length;
+            function closeLegalPage() {
+                if (!legalOverlay) return;
+                legalOverlay.classList.remove('visible');
+                document.body.style.overflow = '';
+            }
 
-  const projAvenants = state.avenants.filter(a => a.projectId === p.id);
-  const totalAvenants = projAvenants.reduce((s, a) => s + (Number(a.estimatedCostHT) || 0), 0);
-  $("#statAvenantsTotal").textContent = euro(totalAvenants);
+            // Délégation d'événements : tout lien portant [data-legal] ouvre le panneau correspondant
+            document.addEventListener('click', function (e) {
+                var link = e.target.closest ? e.target.closest('[data-legal]') : null;
+                if (link) {
+                    e.preventDefault();
+                    openLegalPage(link.getAttribute('data-legal'));
+                }
+            });
 
-  const recentReports = state.reports.filter(r => r.projectId === p.id).slice(0, 5);
-  const list = $("#recentActivityList");
-  list.innerHTML = "";
-  $("#emptyActivity").classList.toggle("hidden", recentReports.length > 0);
+            if (legalBack) legalBack.addEventListener('click', closeLegalPage);
 
-  recentReports.forEach(r => {
-    const div = document.createElement("div");
-    div.className = "card-tap bg-slate-900 border border-slate-800 rounded-xl p-3.5 transition-transform";
-    div.innerHTML = `
-      <div class="flex items-start justify-between gap-2 mb-1.5">
-        <p class="font-semibold text-sm leading-snug">${r.title}</p>
-        <span class="text-[10px] shrink-0 px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 border border-blue-500/30">${r.status}</span>
-      </div>
-      <p class="text-xs text-slate-500 mb-2">${r.date} · ${r.weather || "—"}</p>
-      <p class="text-xs text-slate-400 line-clamp-2">${r.summary}</p>`;
-    list.appendChild(div);
-  });
-}
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && legalOverlay && legalOverlay.classList.contains('visible')) {
+                    closeLegalPage();
+                }
+            });
 
-/* ============================================================
-   RENDU RAPPORTS
-   ============================================================ */
-function renderReports() {
-  const p = activeProject();
-  const reports = state.reports.filter(r => r.projectId === p.id);
-  const list = $("#reportsList");
-  list.innerHTML = "";
-  $("#emptyReports").classList.toggle("hidden", reports.length > 0);
+            if (legalReopenBanner) {
+                legalReopenBanner.addEventListener('click', function () {
+                    try { localStorage.removeItem(COOKIE_KEY); } catch (e) {}
+                    closeLegalPage();
+                    if (banner) banner.classList.add('visible');
+                });
+            }
 
-  reports.forEach(r => {
-    const div = document.createElement("div");
-    div.className = "bg-slate-900 border border-slate-800 rounded-xl p-4";
-    div.innerHTML = `
-      <div class="flex items-start justify-between gap-2 mb-2">
-        <p class="font-semibold text-sm">${r.title}</p>
-        <span class="text-[10px] shrink-0 px-2 py-0.5 rounded-full bg-blue-500/15 text-blue-400 border border-blue-500/30">${r.status}</span>
-      </div>
-      <p class="text-xs text-slate-500 mb-2">${r.date} · ${r.weather}</p>
-      <p class="text-sm text-slate-300 mb-3">${r.summary}</p>
-      <div class="flex flex-wrap gap-1.5 mb-3">
-        ${(r.corpsEtat || []).map(c => `<span class="text-[10px] px-2 py-1 rounded-full bg-slate-800 text-slate-300">${c}</span>`).join("")}
-      </div>
-      <div class="flex gap-2">
-        <button class="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 py-2 rounded-lg" onclick="downloadReportPdf('${r.id}')">
-          <i data-lucide="file-down" class="w-3.5 h-3.5"></i> PDF
-        </button>
-        <button class="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 py-2 rounded-lg" onclick="shareReport('${r.id}')">
-          <i data-lucide="share-2" class="w-3.5 h-3.5"></i> Partager
-        </button>
-      </div>`;
-    list.appendChild(div);
-  });
-  refreshIcons();
-}
+            // --- Menu mobile ---
+            var navToggle = document.getElementById('navToggle');
+            var navLinks = document.getElementById('navLinks');
 
-/* ============================================================
-   RENDU RESERVES
-   ============================================================ */
-function renderReserves() {
-  const p = activeProject();
-  let reserves = state.reserves.filter(r => r.projectId === p.id);
-  if (currentReserveFilter !== "Toutes") {
-    reserves = reserves.filter(r => r.status === currentReserveFilter);
-  }
-  const list = $("#reservesList");
-  list.innerHTML = "";
-  $("#emptyReserves").classList.toggle("hidden", reserves.length > 0);
+            if (navToggle && navLinks) {
+                navToggle.addEventListener('click', function () {
+                    var isOpen = navLinks.classList.toggle('open');
+                    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                    navToggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+                });
 
-  reserves.forEach(r => {
-    const div = document.createElement("div");
-    div.className = "card-tap bg-slate-900 border border-slate-800 rounded-xl p-3.5 transition-transform";
-    div.innerHTML = `
-      <div class="flex items-start justify-between gap-2 mb-1.5">
-        <p class="font-semibold text-sm leading-snug flex-1">${r.title}</p>
-        <span class="text-[10px] shrink-0 px-2 py-0.5 rounded-full border ${priorityStyles[r.priority]}">${r.priority}</span>
-      </div>
-      <p class="text-xs text-slate-500 mb-1 flex items-center gap-1"><i data-lucide="map-pin" class="w-3 h-3"></i> ${r.location} · ${r.lotName}</p>
-      <p class="text-xs text-slate-400 mb-3">Sous-traitant : ${r.assignedToSubcontractor || "Non assigné"}</p>
-      <div class="flex gap-2">
-        ${r.status === "Ouverte" ? `
-        <button class="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 py-2 rounded-lg" onclick="markReserveResolved('${r.id}')">
-          <i data-lucide="check" class="w-3.5 h-3.5"></i> Marquer comme levée
-        </button>
-        <button class="flex items-center justify-center gap-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 py-2 px-3 rounded-lg" onclick="notifySubcontractor('${r.id}')">
-          <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-        </button>` : `
-        <span class="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 py-2 rounded-lg">
-          <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Réserve levée
-        </span>`}
-      </div>`;
-    list.appendChild(div);
-  });
-  refreshIcons();
-}
-$$(".reserve-filter-btn").forEach(b => b.addEventListener("click", () => {
-  currentReserveFilter = b.dataset.filter;
-  $$(".reserve-filter-btn").forEach(x => { x.classList.remove("bg-blue-600","text-white"); x.classList.add("bg-slate-900","border","border-slate-800","text-slate-400"); });
-  b.classList.remove("bg-slate-900","border","border-slate-800","text-slate-400");
-  b.classList.add("bg-blue-600","text-white");
-  renderReserves();
-}));
-function markReserveResolved(id) {
-  const r = state.reserves.find(x => x.id === id);
-  if (r) { r.status = "Levée"; saveState(); renderAll(); }
-}
-function notifySubcontractor(id) {
-  const r = state.reserves.find(x => x.id === id);
-  if (!r) return;
-  const text = `Bonjour, une réserve a été identifiée sur le chantier "${activeProject().name}" — ${r.location} (${r.lotName}) : ${r.title}. Merci de planifier une intervention.`;
-  shareText(text, "Relance sous-traitant");
-}
-
-/* ============================================================
-   RENDU FINANCES / AVENANTS
-   ============================================================ */
-function renderFinances() {
-  const p = activeProject();
-  const avenants = state.avenants.filter(a => a.projectId === p.id);
-  const total = avenants.reduce((s, a) => s + (Number(a.estimatedCostHT) || 0), 0);
-  $("#financeTotal").textContent = euro(total);
-
-  const list = $("#avenantsList");
-  list.innerHTML = "";
-  $("#emptyAvenants").classList.toggle("hidden", avenants.length > 0);
-
-  const statusStyles = {
-    "A_valider": "bg-amber-500/15 text-amber-400 border-amber-500/30",
-    "Envoyé_client": "bg-blue-500/15 text-blue-400 border-blue-500/30",
-    "Approuvé": "bg-emerald-500/15 text-emerald-400 border-emerald-500/30"
-  };
-  const statusLabels = { "A_valider": "À valider", "Envoyé_client": "Envoyé client", "Approuvé": "Approuvé" };
-
-  avenants.forEach(a => {
-    const div = document.createElement("div");
-    div.className = "bg-slate-900 border border-slate-800 rounded-xl p-3.5";
-    div.innerHTML = `
-      <div class="flex items-start justify-between gap-2 mb-1.5">
-        <p class="text-sm font-medium leading-snug flex-1">${a.description}</p>
-        <span class="text-[10px] shrink-0 px-2 py-0.5 rounded-full border ${statusStyles[a.status]}">${statusLabels[a.status]}</span>
-      </div>
-      <p class="text-lg font-bold text-emerald-400 mb-3">${euro(a.estimatedCostHT)} <span class="text-xs font-normal text-slate-500">HT</span></p>
-      <div class="flex gap-2">
-        <button class="flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 py-2 rounded-lg" onclick="sendAvenant('${a.id}')">
-          <i data-lucide="send" class="w-3.5 h-3.5"></i> Envoyer pour signature
-        </button>
-      </div>`;
-    list.appendChild(div);
-  });
-  refreshIcons();
-}
-function sendAvenant(id) {
-  const a = state.avenants.find(x => x.id === id);
-  if (!a) return;
-  a.status = "Envoyé_client";
-  saveState();
-  const text = `Avenant chantier "${activeProject().name}" : ${a.description} — Estimation ${euro(a.estimatedCostHT)} HT. Merci de valider pour signature.`;
-  shareText(text, "Avenant à valider");
-  renderAll();
-}
-$("#exportFinanceBtn").addEventListener("click", () => {
-  const p = activeProject();
-  const avenants = state.avenants.filter(a => a.projectId === p.id);
-  const total = avenants.reduce((s, a) => s + (Number(a.estimatedCostHT) || 0), 0);
-  const lines = avenants.map(a => `• ${a.description} — ${euro(a.estimatedCostHT)} HT`).join("\n");
-  shareText(`Récapitulatif avenants — ${p.name}\n\n${lines}\n\nTotal HT : ${euro(total)}`, "Récapitulatif avenants");
-});
-
-function renderAll() {
-  renderDashboard(); renderReports(); renderReserves(); renderFinances();
-  refreshIcons();
-}
-
-/* ============================================================
-   PARTAGE (Web Share API) — 1-clic WhatsApp / SMS
-   ============================================================ */
-function shareText(text, title) {
-  if (navigator.share) {
-    navigator.share({ title: title || "ChantierCopilot", text }).catch(() => {});
-  } else {
-    window.open("https://wa.me/?text=" + encodeURIComponent(text), "_blank");
-  }
-}
-function shareReport(id) {
-  const r = state.reports.find(x => x.id === id);
-  if (!r) return;
-  shareText(`${r.title}\n${r.date} · ${r.weather}\n\n${r.summary}`, r.title);
-}
-function downloadReportPdf(id) {
-  // Génération d'un PDF nécessite une lib côté client (ex: jsPDF) — branchement à prévoir.
-  alert("Export PDF : à connecter à une librairie type jsPDF, ou à un endpoint backend de génération.");
-}
-
-/* ============================================================
-   SELECTEUR DE PROJET
-   ============================================================ */
-function renderProjectModal() {
-  const wrap = $("#projectListModal");
-  wrap.innerHTML = "";
-  state.projects.forEach(p => {
-    const div = document.createElement("button");
-    div.className = "w-full flex items-center gap-3 bg-slate-950 border border-slate-800 rounded-xl p-3 text-left";
-    div.innerHTML = `
-      <div class="w-9 h-9 rounded-lg bg-blue-600/15 flex items-center justify-center shrink-0">
-        <i data-lucide="building-2" class="w-4 h-4 text-blue-500"></i>
-      </div>
-      <div class="flex-1 min-w-0">
-        <p class="text-sm font-semibold truncate">${p.name}</p>
-        <p class="text-xs text-slate-500 truncate">${p.address}</p>
-      </div>
-      ${p.id === state.activeProjectId ? '<i data-lucide="check" class="w-4 h-4 text-blue-500 shrink-0"></i>' : ""}`;
-    div.addEventListener("click", () => {
-      state.activeProjectId = p.id;
-      saveState();
-      $("#projectModal").classList.add("hidden");
-      renderAll();
-    });
-    wrap.appendChild(div);
-  });
-  refreshIcons();
-}
-$("#projectSelectorBtn").addEventListener("click", () => { renderProjectModal(); $("#projectModal").classList.remove("hidden"); });
-$("#projectModalOverlay").addEventListener("click", () => $("#projectModal").classList.add("hidden"));
-
-/* ============================================================
-   MOTEUR VOCAL & AGENT IA (TRIGGER-TO-ACTION)
-   ============================================================ */
-const fabMic = $("#fabMic");
-const voiceModal = $("#voiceModal");
-const recordBtn = $("#recordBtn");
-const processBtn = $("#processBtn");
-const waveformBox = $("#waveformBox");
-const idleMicIcon = $("#idleMicIcon");
-const liveTranscript = $("#liveTranscript");
-const recordingStatusLabel = $("#recordingStatusLabel");
-
-// Génère les barres du waveform
-for (let i = 0; i < 24; i++) {
-  const bar = document.createElement("div");
-  bar.className = "wave-bar";
-  bar.style.height = (16 + Math.random() * 32) + "px";
-  bar.style.animationDelay = (Math.random() * 0.6) + "s";
-  waveformBox.appendChild(bar);
-}
-
-function openVoiceModal() {
-  resetVoiceModalSteps();
-  voiceModal.classList.remove("hidden");
-  refreshIcons();
-}
-function closeVoiceModal() {
-  if (isRecording) stopRecording();
-  voiceModal.classList.add("hidden");
-}
-function resetVoiceModalSteps() {
-  $("#stepRecording").classList.remove("hidden");
-  $("#stepProcessing").classList.add("hidden");
-  $("#stepResult").classList.add("hidden");
-  processBtn.classList.add("hidden");
-  recordBtn.classList.remove("hidden");
-  waveformBox.classList.add("hidden");
-  idleMicIcon.classList.remove("hidden");
-  liveTranscript.textContent = "—";
-  recordingStatusLabel.textContent = "Appuyez pour dicter votre point chantier";
-  finalTranscript = "";
-}
-fabMic.addEventListener("click", openVoiceModal);
-$("#ctaCopilot").addEventListener("click", openVoiceModal);
-$("#closeVoiceModal").addEventListener("click", closeVoiceModal);
-$("#closeResultBtn").addEventListener("click", () => { closeVoiceModal(); renderAll(); });
-
-// Web Speech API (avec repli simulation si non supportée / hors-ligne)
-const SpeechRecognitionAPI = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-function startRecording() {
-  isRecording = true;
-  waveformBox.classList.remove("hidden");
-  idleMicIcon.classList.add("hidden");
-  recordingStatusLabel.textContent = "Écoute en cours... appuyez pour arrêter";
-  recordBtn.innerHTML = '<i data-lucide="square" class="w-7 h-7 text-white"></i>';
-  refreshIcons();
-
-  if (SpeechRecognitionAPI) {
-    recognition = new SpeechRecognitionAPI();
-    recognition.lang = "fr-FR";
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.onresult = (e) => {
-      let interim = "";
-      finalTranscript = "";
-      for (let i = 0; i < e.results.length; i++) {
-        if (e.results[i].isFinal) finalTranscript += e.results[i][0].transcript + " ";
-        else interim += e.results[i][0].transcript;
-      }
-      liveTranscript.textContent = (finalTranscript + interim).trim() || "—";
-    };
-    recognition.onerror = () => simulateDictationFallback();
-    try { recognition.start(); } catch (e) { simulateDictationFallback(); }
-  } else {
-    simulateDictationFallback();
-  }
-}
-
-// Repli hors-ligne / navigateurs non compatibles : dictée simulée pour la démo
-function simulateDictationFallback() {
-  const demo = "Aujourd'hui sur le chantier, gros œuvre bien avancé, coffrage terminé au deuxième étage. Il y a une réserve importante appartement 302 salle de bain, infiltration au niveau du receveur, c'est le lot plomberie chez Dupont Sanitaire qui est responsable, priorité haute. Le client a demandé un ajout de prise électrique supplémentaire dans le salon du 105, avenant estimé à 450 euros. Le sous-traitant électricien a deux jours de retard, ça impacte le planning du peintre la semaine prochaine.";
-  let i = 0;
-  finalTranscript = "";
-  const interval = setInterval(() => {
-    if (!isRecording) { clearInterval(interval); return; }
-    finalTranscript = demo.slice(0, i);
-    liveTranscript.textContent = finalTranscript || "—";
-    i += 6;
-    if (i > demo.length) clearInterval(interval);
-  }, 40);
-}
-
-function stopRecording() {
-  isRecording = false;
-  if (recognition) { try { recognition.stop(); } catch (e) {} }
-  waveformBox.classList.add("hidden");
-  idleMicIcon.classList.remove("hidden");
-  recordBtn.classList.add("hidden");
-  processBtn.classList.remove("hidden");
-  recordingStatusLabel.textContent = "Dictée terminée";
-  if (!finalTranscript.trim()) {
-    finalTranscript = liveTranscript.textContent === "—" ? "" : liveTranscript.textContent;
-  }
-  refreshIcons();
-}
-
-recordBtn.addEventListener("click", () => { if (!isRecording) startRecording(); else stopRecording(); });
-
-processBtn.addEventListener("click", () => {
-  $("#stepRecording").classList.add("hidden");
-  $("#stepProcessing").classList.remove("hidden");
-  // Simule le traitement de l'agent IA (Agentic Structuring Engine)
-  setTimeout(() => runAgenticStructuring(finalTranscript || ""), 1400);
-});
-
-/* ------------------------------------------------------------
-   Agentic Structuring Engine (mock)
-   NOTE : ceci est une heuristique de démonstration côté client.
-   En production, remplacer par un appel à l'API Claude (Messages API)
-   avec prompt structuré demandant un JSON { report, reserves[], avenants[], actions[] }.
-   ------------------------------------------------------------ */
-function runAgenticStructuring(transcript) {
-  const p = activeProject();
-  const today = new Date().toLocaleDateString("fr-FR");
-  const lower = transcript.toLowerCase();
-
-  const corpsEtat = [];
-  [["gros œuvre","gros"],["plomberie","plomb"],["électricité","électri"],["peinture","peintur"],["coffrage","coffrage"]].forEach(([label,key]) => {
-    if (lower.includes(key)) corpsEtat.push(label.charAt(0).toUpperCase()+label.slice(1));
-  });
-  if (corpsEtat.length === 0) corpsEtat.push("Gros Œuvre");
-
-  const report = {
-    id: uid("rep"), projectId: p.id, date: today,
-    title: "Compte-rendu du " + today,
-    summary: transcript ? (transcript.length > 220 ? transcript.slice(0,220) + "…" : transcript) : "Point chantier dicté oralement, structuré automatiquement par l'agent IA.",
-    weather: "Ensoleillé, 18°C",
-    status: "Brouillon",
-    corpsEtat
-  };
-
-  const reserves = [];
-  if (lower.includes("réserve") || lower.includes("infiltration") || lower.includes("problème") || lower.includes("anomalie")) {
-    reserves.push({
-      id: uid("res"), projectId: p.id, reportId: report.id,
-      lotName: lower.includes("plomberie") ? "Plomberie" : "Second Œuvre",
-      title: lower.includes("infiltration") ? "Infiltration au niveau du receveur" : "Anomalie détectée sur site",
-      location: extractLocation(transcript) || "Localisation à préciser",
-      priority: lower.includes("priorité haute") || lower.includes("important") ? "Haute" : "Moyenne",
-      assignedToSubcontractor: extractSubcontractor(transcript) || "À assigner",
-      status: "Ouverte", photoUrl: null
-    });
-  }
-
-  const avenants = [];
-  const costMatch = transcript.match(/(\d+)\s*(euros?|€)/i);
-  if (lower.includes("avenant") || lower.includes("supplément") || costMatch) {
-    avenants.push({
-      id: uid("ave"), projectId: p.id, reportId: report.id,
-      description: lower.includes("prise électrique") ? "Ajout d'une prise électrique supplémentaire" : "Travaux supplémentaires identifiés à la voix",
-      estimatedCostHT: costMatch ? Number(costMatch[1]) : 0,
-      status: "A_valider"
-    });
-  }
-
-  const actions = [];
-  if (lower.includes("retard")) {
-    actions.push({
-      id: uid("act"),
-      text: "Relance sous-traitant en retard — impact sur le planning des corps d'état suivants.",
-      smsDraft: `Bonjour, nous constatons un retard sur le chantier "${p.name}" qui impacte les intervenants suivants. Merci de nous indiquer une nouvelle date de passage.`
-    });
-  }
-
-  state.reports.unshift(report);
-  reserves.forEach(r => state.reserves.unshift(r));
-  avenants.forEach(a => state.avenants.unshift(a));
-  saveState();
-
-  showResultStep(report, reserves, avenants, actions);
-}
-
-function extractLocation(t) {
-  const m = t.match(/(appartement|apt\.?|logement)\s*(\d+)/i);
-  if (m) return "Apt " + m[2] + (t.toLowerCase().includes("salle de bain") ? " / Salle de bain" : "");
-  return null;
-}
-function extractSubcontractor(t) {
-  const m = t.match(/(?:chez|sous-traitant)\s+([A-ZÀ-Ü][\wÀ-ÿ\-]+(?:\s+[A-ZÀ-Ü][\wÀ-ÿ\-]+)?)/);
-  return m ? m[1] : null;
-}
-
-function showResultStep(report, reserves, avenants, actions) {
-  $("#stepProcessing").classList.add("hidden");
-  $("#stepResult").classList.remove("hidden");
-  const wrap = $("#resultCardsWrap");
-  wrap.innerHTML = "";
-
-  // Carte Rapport
-  wrap.appendChild(buildResultCard({
-    icon: "file-text", iconColor: "text-blue-400", badge: "Compte-rendu",
-    title: report.title,
-    body: report.summary,
-    actions: [
-      { label: "Télécharger PDF", icon: "file-down", handler: () => downloadReportPdf(report.id) },
-      { label: "Partager", icon: "share-2", handler: () => shareReport(report.id) }
-    ]
-  }));
-
-  // Cartes Réserves
-  reserves.forEach(r => {
-    wrap.appendChild(buildResultCard({
-      icon: "alert-triangle", iconColor: "text-amber-400", badge: "Réserve créée · " + r.priority,
-      title: r.title,
-      body: `${r.location} · ${r.lotName} · Sous-traitant : ${r.assignedToSubcontractor}`,
-      actions: [
-        { label: "Notifier le sous-traitant (WhatsApp)", icon: "message-circle", handler: () => notifySubcontractor(r.id) }
-      ]
-    }));
-  });
-
-  // Cartes Avenants
-  avenants.forEach(a => {
-    wrap.appendChild(buildResultCard({
-      icon: "euro", iconColor: "text-emerald-400", badge: "Avenant créé",
-      title: a.description,
-      body: `Estimation : ${euro(a.estimatedCostHT)} HT`,
-      actions: [
-        { label: "Envoyer pour signature client", icon: "send", handler: () => sendAvenant(a.id) }
-      ]
-    }));
-  });
-
-  // Cartes Actions/Relances
-  actions.forEach(act => {
-    wrap.appendChild(buildResultCard({
-      icon: "send", iconColor: "text-blue-400", badge: "Relance pré-rédigée",
-      title: act.text, body: act.smsDraft,
-      actions: [{ label: "Envoyer (SMS/WhatsApp)", icon: "message-circle", handler: () => shareText(act.smsDraft, "Relance") }]
-    }));
-  });
-
-  if (reserves.length === 0 && avenants.length === 0 && actions.length === 0) {
-    const note = document.createElement("p");
-    note.className = "text-xs text-slate-500 text-center pt-2";
-    note.textContent = "Aucune réserve, avenant ou relance détecté dans cette dictée.";
-    wrap.appendChild(note);
-  }
-
-  refreshIcons();
-}
-
-function buildResultCard({ icon, iconColor, badge, title, body, actions }) {
-  const div = document.createElement("div");
-  div.className = "bg-slate-900 border border-slate-800 rounded-2xl p-4";
-  const actionsHtml = actions.map((a, idx) =>
-    `<button data-idx="${idx}" class="result-action-btn flex-1 flex items-center justify-center gap-1.5 text-xs font-semibold bg-slate-800 hover:bg-slate-700 py-2.5 rounded-lg">
-      <i data-lucide="${a.icon}" class="w-3.5 h-3.5"></i> ${a.label}
-    </button>`).join("");
-  div.innerHTML = `
-    <div class="flex items-center gap-2 mb-2">
-      <i data-lucide="${icon}" class="w-4 h-4 ${iconColor}"></i>
-      <span class="text-[10px] uppercase tracking-wide font-semibold ${iconColor}">${badge}</span>
-    </div>
-    <p class="font-semibold text-sm mb-1.5">${title}</p>
-    <p class="text-xs text-slate-400 mb-3">${body}</p>
-    <div class="flex gap-2 flex-wrap">${actionsHtml}</div>`;
-  div.querySelectorAll(".result-action-btn").forEach((btn, idx) => btn.addEventListener("click", () => actions[idx].handler()));
-  return div;
-}
-
-/* ============================================================
-   ETAT RESEAU (Online / Offline)
-   ============================================================ */
-function updateNetStatus() {
-  const online = navigator.onLine;
-  const el = $("#netStatus"), label = $("#netStatusLabel");
-  if (online) {
-    el.className = "flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20";
-    el.querySelector("span:first-child").className = "w-1.5 h-1.5 rounded-full bg-emerald-500";
-    label.textContent = "En ligne";
-  } else {
-    el.className = "flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20";
-    el.querySelector("span:first-child").className = "w-1.5 h-1.5 rounded-full bg-amber-500";
-    label.textContent = "Hors-ligne";
-  }
-}
-window.addEventListener("online", updateNetStatus);
-window.addEventListener("offline", updateNetStatus);
-
-/* ============================================================
-   INIT
-   ============================================================ */
-updateNetStatus();
-renderAll();
-refreshIcons();
-</script>
+                // Ferme le menu après un clic sur un lien (ancre)
+                navLinks.querySelectorAll('a').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        navLinks.classList.remove('open');
+                        navToggle.setAttribute('aria-expanded', 'false');
+                        navToggle.setAttribute('aria-label', 'Ouvrir le menu');
+                    });
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
